@@ -1,912 +1,466 @@
 <!DOCTYPE html>
 <html lang="nl">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Morgen Academy – Interne Git Workflow</title>
+  <title>Morgen Academy – Git Workflow</title>
+
   <style>
-    :root{
-      --bg:#f6f3ee;
-      --panel:#ffffff;
-      --panel-soft:#fbf8f3;
-      --text:#171717;
-      --muted:#67625d;
-      --line:#ddd5c9;
-      --accent:#111111;
-      --accent-soft:#efe8dc;
-      --ok:#eef6ef;
-      --ok-line:#d5e5d6;
-      --warn:#fff5e8;
-      --warn-line:#ead8ae;
-      --radius:24px;
-      --shadow:0 12px 28px rgba(0,0,0,.05);
+    :root {
+      --bg: #f6f3ee;
+      --panel: #ffffff;
+      --panel-soft: #fbf8f3;
+      --text: #1a1a1a;
+      --muted: #6b655e;
+      --line: #ddd5c9;
+      --accent: #111;
+      --radius: 22px;
+      --shadow: 0 10px 25px rgba(0, 0, 0, .05);
     }
 
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,sans-serif;
-      background:linear-gradient(180deg,#f8f5ef 0%,#f2ede5 100%);
-      color:var(--text);
-      line-height:1.55;
+    * {
+      box-sizing: border-box
     }
 
-    .wrap{
-      max-width:1180px;
-      margin:0 auto;
-      padding:28px 20px 90px;
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif;
+      background: linear-gradient(180deg, #f8f5ef, #f2ede5);
+      color: var(--text);
+      line-height: 1.6;
     }
 
-    .hero{
-      background:linear-gradient(135deg,#ffffff 0%,#f2ece2 100%);
-      border:1px solid var(--line);
-      border-radius:30px;
-      padding:34px;
-      box-shadow:var(--shadow);
-      position:relative;
-      overflow:hidden;
+    .wrap {
+      max-width: 1100px;
+      margin: auto;
+      padding: 32px 20px 80px;
     }
 
-    .hero::after{
-      content:"";
-      position:absolute;
-      right:-90px;
-      top:-90px;
-      width:260px;
-      height:260px;
-      border-radius:50%;
-      background:radial-gradient(circle,rgba(0,0,0,.05),rgba(0,0,0,0));
-      pointer-events:none;
+    .hero {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 36px;
+      box-shadow: var(--shadow);
+      margin-bottom: 30px;
     }
 
-    .eyebrow{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:7px 11px;
-      border-radius:999px;
-      background:var(--accent-soft);
-      font-size:12px;
-      font-weight:800;
-      text-transform:uppercase;
-      letter-spacing:.05em;
-      color:#4d4a45;
-      margin-bottom:14px;
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: 46px;
+      letter-spacing: -.03em;
     }
 
-    h1{
-      margin:0 0 12px;
-      font-size:clamp(34px,5vw,58px);
-      line-height:.98;
-      letter-spacing:-.04em;
-      max-width:800px;
+    .hero p {
+      color: var(--muted);
+      font-size: 18px;
+      max-width: 700px;
     }
 
-    .lead{
-      max-width:820px;
-      font-size:18px;
-      color:#403c37;
-      margin:0 0 18px;
+    .diagram {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+      font-weight: 600;
     }
 
-    .hero-actions{
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-      margin-top:18px;
+    .node {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: #f0e9dd;
+      border: 1px solid var(--line);
     }
 
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-      padding:13px 16px;
-      border-radius:14px;
-      border:1px solid var(--line);
-      background:#fff;
-      color:var(--text);
-      text-decoration:none;
-      font-weight:750;
-      cursor:pointer;
+    .arrow {
+      font-size: 24px;
+      margin: 8px 0;
     }
 
-    .btn.primary{
-      background:var(--accent);
-      border-color:var(--accent);
-      color:#fff;
+    .toggle {
+      margin-top: 22px;
+      display: inline-flex;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      overflow: hidden;
     }
 
-    .platform-switch{
-      margin-top:22px;
-      display:flex;
-      align-items:center;
-      gap:12px;
-      flex-wrap:wrap;
+    .toggle button {
+      border: 0;
+      padding: 10px 18px;
+      font-weight: 700;
+      background: #f1ebe1;
+      cursor: pointer;
     }
 
-    .platform-label{
-      font-size:14px;
-      color:var(--muted);
-      font-weight:700;
+    .toggle button.active {
+      background: #111;
+      color: white;
     }
 
-    .toggle{
-      display:inline-flex;
-      background:#ebe4d8;
-      border:1px solid var(--line);
-      border-radius:999px;
-      padding:4px;
-      gap:4px;
+    .card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      padding: 26px;
+      margin-bottom: 22px;
+      box-shadow: var(--shadow);
     }
 
-    .toggle button{
-      border:0;
-      background:transparent;
-      color:#4b4741;
-      padding:10px 16px;
-      border-radius:999px;
-      font-weight:800;
-      cursor:pointer;
-      min-width:92px;
+    .card h2 {
+      margin: 0 0 10px;
+      letter-spacing: -.02em;
     }
 
-    .toggle button.active{
-      background:#fff;
-      color:#111;
-      box-shadow:0 1px 3px rgba(0,0,0,.08);
+    .sub {
+      color: var(--muted);
+      margin-bottom: 16px;
     }
 
-    .layout{
-      display:grid;
-      grid-template-columns:300px 1fr;
-      gap:24px;
-      margin-top:26px;
-      align-items:start;
+    .steps {
+      display: grid;
+      gap: 12px;
+      margin-top: 10px;
     }
 
-    .sidebar{
-      position:sticky;
-      top:18px;
-      display:grid;
-      gap:16px;
+    .step {
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 12px;
+      align-items: start;
+      background: var(--panel-soft);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 14px;
     }
 
-    .sidecard, .card{
-      background:var(--panel);
-      border:1px solid var(--line);
-      box-shadow:var(--shadow);
+    .num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #111;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
     }
 
-    .sidecard{
-      border-radius:22px;
-      padding:18px;
+    .cmd {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-top: 14px;
     }
 
-    .sidecard h2,
-    .sidecard h3{
-      margin:0 0 10px;
-      font-size:16px;
-      letter-spacing:-.02em;
+    .cmd-head {
+      display: flex;
+      justify-content: space-between;
+      background: #f5efe6;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--line);
+      font-size: 14px;
+      font-weight: 700;
     }
 
-    .nav{
-      display:grid;
-      gap:10px;
+    .copy {
+      background: #111;
+      color: white;
+      border: 0;
+      padding: 6px 10px;
+      border-radius: 8px;
+      cursor: pointer;
     }
 
-    .nav a{
-      text-decoration:none;
-      color:var(--text);
-      background:var(--panel-soft);
-      border:1px solid var(--line);
-      border-radius:14px;
-      padding:12px 13px;
-      font-weight:700;
+    pre {
+      margin: 0;
+      padding: 14px;
+      background: #111;
+      color: #f8f8f8;
+      overflow-x: auto;
+      font-size: 14px;
     }
 
-    .side-mini{
-      color:var(--muted);
-      font-size:14px;
+    .panic {
+      background: #fff3f3;
+      border: 1px solid #e6caca;
+      border-radius: 18px;
+      padding: 18px;
+      margin-top: 18px;
     }
 
-    .main{
-      display:grid;
-      gap:20px;
+    .hidden {
+      display: none
     }
 
-    .card{
-      border-radius:26px;
-      padding:26px;
-    }
-
-    .card h2{
-      margin:0 0 8px;
-      font-size:28px;
-      letter-spacing:-.03em;
-    }
-
-    .sub{
-      color:var(--muted);
-      margin:0 0 16px;
-    }
-
-    .callout{
-      margin:16px 0 18px;
-      border-radius:18px;
-      padding:15px 16px;
-      border:1px solid var(--line);
-      background:var(--accent-soft);
-    }
-
-    .callout.ok{
-      background:var(--ok);
-      border-color:var(--ok-line);
-    }
-
-    .callout.warn{
-      background:var(--warn);
-      border-color:var(--warn-line);
-    }
-
-    .callout strong{
-      display:block;
-      margin-bottom:4px;
-    }
-
-    .tool-switch{
-      display:grid;
-      gap:14px;
-      margin-top:14px;
-    }
-
-    .tool-row{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-    }
-
-    .pill{
-      border:1px solid var(--line);
-      background:var(--panel-soft);
-      border-radius:999px;
-      padding:10px 12px;
-      font-weight:700;
-    }
-
-    .repo-box{
-      border:2px dashed #cfc4b1;
-      background:#fffdf9;
-      border-radius:20px;
-      padding:18px;
-      font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
-      font-size:14px;
-      line-height:1.55;
-      white-space:pre-line;
-    }
-
-    .steps{
-      display:grid;
-      gap:12px;
-      margin-top:14px;
-    }
-
-    .step{
-      display:grid;
-      grid-template-columns:36px 1fr;
-      gap:12px;
-      align-items:start;
-      background:var(--panel-soft);
-      border:1px solid var(--line);
-      border-radius:18px;
-      padding:14px;
-    }
-
-    .step-num{
-      width:36px;
-      height:36px;
-      border-radius:50%;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      background:var(--accent);
-      color:#fff;
-      font-weight:800;
-    }
-
-    .command-grid{
-      display:grid;
-      gap:14px;
-      margin:14px 0 10px;
-    }
-
-    .cmd{
-      border:1px solid var(--line);
-      border-radius:18px;
-      overflow:hidden;
-      background:#fff;
-    }
-
-    .cmd-head{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:12px;
-      padding:12px 14px;
-      background:var(--panel-soft);
-      border-bottom:1px solid var(--line);
-    }
-
-    .cmd-title{
-      font-size:14px;
-      font-weight:800;
-    }
-
-    .copy-btn{
-      border:0;
-      background:var(--accent);
-      color:#fff;
-      padding:9px 13px;
-      border-radius:12px;
-      font-weight:800;
-      cursor:pointer;
-      min-width:100px;
-    }
-
-    pre{
-      margin:0;
-      padding:16px;
-      background:#111;
-      color:#f8f8f8;
-      overflow-x:auto;
-      font-size:14px;
-      line-height:1.45;
-    }
-
-    code.inline{
-      background:#f1ece4;
-      border:1px solid var(--line);
-      padding:2px 6px;
-      border-radius:8px;
-      font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
-      font-size:.96em;
-    }
-
-    .hidden{
-      display:none !important;
-    }
-
-    .mistakes{
-      display:grid;
-      gap:12px;
-      margin-top:14px;
-    }
-
-    .mistake{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:12px;
-    }
-
-    .bad,.good{
-      border-radius:18px;
-      padding:16px;
-      border:1px solid var(--line);
-    }
-
-    .bad{
-      background:#fff2f2;
-      border-color:#eccaca;
-    }
-
-    .good{
-      background:#eff8ef;
-      border-color:#d3e6d3;
-    }
-
-    .bad h4,.good h4{
-      margin:0 0 8px;
-      font-size:15px;
-    }
-
-    .faq{
-      display:grid;
-      gap:12px;
-      margin-top:14px;
-    }
-
-    details{
-      border:1px solid var(--line);
-      border-radius:16px;
-      background:var(--panel-soft);
-      padding:14px 16px;
-    }
-
-    summary{
-      cursor:pointer;
-      font-weight:800;
-      list-style:none;
-    }
-
-    summary::-webkit-details-marker{
-      display:none;
-    }
-
-    .footer{
-      text-align:center;
-      margin-top:26px;
-      color:var(--muted);
-      font-size:14px;
-    }
-
-    @media (max-width:940px){
-      .layout{grid-template-columns:1fr}
-      .sidebar{position:static}
-      .mistake{grid-template-columns:1fr}
-      .hero{padding:28px}
-      .card{padding:22px}
+    .footer {
+      text-align: center;
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 14px;
     }
   </style>
 </head>
+
 <body>
+
   <div class="wrap">
-    <section class="hero">
-      <div class="eyebrow">Intern • Git workflow</div>
-      <h1>Zo werken we samen in Git zonder gedoe</h1>
-      <p class="lead">
-        Voor iedereen die met Claude Code, Codex, Conductor of Antigravity werkt:
-        gebruik altijd <strong>één vaste lokale repo per project</strong>.
-        Dus niet opnieuw klonen als je van tool wisselt. Start met <code class="inline">git pull</code>, werk in dezelfde map en sluit af met <code class="inline">save</code>.
+
+    <div class="hero">
+      <h1>Morgen Academy – Git workflow</h1>
+      <p>
+        Zo werken we samen met codeprojecten. Je kunt verschillende AI-tools gebruiken, maar je werkt altijd in
+        <b>dezelfde projectmap</b>. Git synchroniseert jouw werk met GitHub.
       </p>
 
-      <div class="hero-actions">
-        <a class="btn primary" href="#today">Ik ga vandaag verder</a>
-        <a class="btn" href="#first-time">Ik stel het voor het eerst in</a>
+      <div class="diagram">
+        <div class="node">Claude</div>
+        <div class="node">Codex</div>
+        <div class="node">Conductor</div>
+        <div class="node">Antigravity</div>
       </div>
 
-      <div class="platform-switch">
-        <div class="platform-label">Kies je systeem:</div>
-        <div class="toggle">
-          <button id="btn-mac" class="active" onclick="setPlatform('mac')">Mac</button>
-          <button id="btn-win" onclick="setPlatform('win')">Windows</button>
-        </div>
+      <div class="arrow">↓</div>
+
+      <div class="diagram">
+        <div class="node">Local repo</div>
+        <div class="node">GitHub</div>
+        <div class="node">Netlify</div>
       </div>
-    </section>
 
-    <div class="layout">
-      <aside class="sidebar">
-        <div class="sidecard">
-          <h2>Inhoud</h2>
-          <nav class="nav">
-            <a href="#rule">1. De hoofdregel</a>
-            <a href="#first-time">2. Eerste keer instellen</a>
-            <a href="#today">3. Vandaag beginnen</a>
-            <a href="#terminal">4. Terminal / PowerShell openen</a>
-            <a href="#save-work">5. Opslaan en pushen</a>
-            <a href="#switch">6. Wisselen tussen tools</a>
-            <a href="#mistakes">7. Veelgemaakte fouten</a>
-            <a href="#help">8. Hulp bij problemen</a>
-          </nav>
-        </div>
+      <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:18px; margin-bottom:4px;">
+        <a href="#start-today"
+          style="display:inline-block; padding:12px 16px; border-radius:12px; background:#111; color:#fff; text-decoration:none; font-weight:700;">Ik
+          begin vandaag</a>
+        <a href="#setup-first"
+          style="display:inline-block; padding:12px 16px; border-radius:12px; background:#f1ebe1; color:#111; text-decoration:none; font-weight:700; border:1px solid #ddd5c9;">Ik
+          stel het voor het eerst in</a>
+      </div>
 
-        <div class="sidecard">
-          <h3>Kort samengevat</h3>
-          <div class="side-mini">De drie belangrijkste commando’s:</div>
+      <div class="toggle">
+        <button id="macBtn" class="active" onclick="setPlatform('mac')">Mac</button>
+        <button id="winBtn" onclick="setPlatform('win')">Windows</button>
+      </div>
 
-          <div class="command-grid" style="margin-top:12px;">
-            <div class="cmd">
-              <div class="cmd-head">
-                <div class="cmd-title">Check</div>
-                <button class="copy-btn" data-copy="git status">Kopieer</button>
-              </div>
-              <pre><code>git status</code></pre>
-            </div>
-
-            <div class="cmd">
-              <div class="cmd-head">
-                <div class="cmd-title">Haal nieuwste versie op</div>
-                <button class="copy-btn" data-platform="mac" data-copy="git pull">Kopieer</button>
-                <button class="copy-btn hidden" data-platform="win" data-copy="git pull">Kopieer</button>
-              </div>
-              <pre><code>git pull</code></pre>
-            </div>
-
-            <div class="cmd">
-              <div class="cmd-head">
-                <div class="cmd-title">Sla alles op</div>
-                <button class="copy-btn" data-copy="save">Kopieer</button>
-              </div>
-              <pre><code>save</code></pre>
-            </div>
-          </div>
-        </div>
-      </aside>
-
-      <main class="main">
-        <section class="card" id="rule">
-          <h2>1. De hoofdregel</h2>
-          <p class="sub">Iedere tool werkt op dezelfde projectmap. De tool mag wisselen, de repo-map niet.</p>
-
-          <div class="callout ok">
-            <strong>Goed om te onthouden</strong>
-            Een GitHub-repo is jullie centrale waarheid. Jouw lokale clone is je werkmap. Claude, Codex, Conductor en Antigravity zijn alleen verschillende manieren om in diezelfde map te werken.
-          </div>
-
-          <div class="tool-switch">
-            <div class="tool-row">
-              <div class="pill">Claude Code</div>
-              <div class="pill">Codex</div>
-              <div class="pill">Conductor</div>
-              <div class="pill">Antigravity</div>
-            </div>
-            <div style="text-align:center; font-size:28px;">↓</div>
-            <div class="repo-box platform-mac">~/Repos/
-└── website
-    ├── index.html
-    ├── src/
-    ├── public/
-    └── .git</div>
-            <div class="repo-box platform-win hidden">C:\Repos\
-└── website
-    ├── index.html
-    ├── src\
-    ├── public\
-    └── .git</div>
-          </div>
-
-          <div class="callout warn">
-            <strong>Niet doen</strong>
-            Niet opnieuw klonen zodra je van tool wisselt. Niet werken vanuit een gedeelde Drive-map. Niet meerdere clones maken van hetzelfde project zonder reden.
-          </div>
-        </section>
-
-        <section class="card" id="first-time">
-          <h2>2. Eerste keer instellen</h2>
-          <p class="sub">Dit doe je één keer per project.</p>
-
-          <div class="steps">
-            <div class="step">
-              <div class="step-num">1</div>
-              <div class="platform-mac">Maak op je Mac een vaste map voor projecten, bijvoorbeeld <code class="inline">~/Repos</code>.</div>
-              <div class="platform-win hidden">Maak op Windows een vaste map voor projecten, bijvoorbeeld <code class="inline">C:\Repos</code>.</div>
-            </div>
-            <div class="step">
-              <div class="step-num">2</div>
-              <div>Clone de GitHub-repo naar die map.</div>
-            </div>
-            <div class="step">
-              <div class="step-num">3</div>
-              <div>Werk voortaan altijd in diezelfde map. Dus niet later opnieuw klonen als een andere tool verder moet.</div>
-            </div>
-          </div>
-
-          <div class="command-grid">
-            <div class="cmd platform-mac">
-              <div class="cmd-head">
-                <div class="cmd-title">Clone een nieuwe repo (Mac)</div>
-                <button class="copy-btn" data-copy="cd ~/Repos
-git clone REPO-URL projectnaam">Kopieer</button>
-              </div>
-              <pre><code>cd ~/Repos
-git clone REPO-URL projectnaam</code></pre>
-            </div>
-
-            <div class="cmd platform-win hidden">
-              <div class="cmd-head">
-                <div class="cmd-title">Clone een nieuwe repo (Windows)</div>
-                <button class="copy-btn" data-copy="cd C:\Repos
-git clone REPO-URL projectnaam">Kopieer</button>
-              </div>
-              <pre><code>cd C:\Repos
-git clone REPO-URL projectnaam</code></pre>
-            </div>
-          </div>
-
-          <div class="callout">
-            <strong>Voorbeeld</strong>
-            Als je repo <code class="inline">internal-workflow-</code> heet, dan krijg je een map zoals
-            <span class="platform-mac"><code class="inline">~/Repos/internal-workflow-</code></span>
-            <span class="platform-win hidden"><code class="inline">C:\Repos\internal-workflow-</code></span>.
-          </div>
-        </section>
-
-        <section class="card" id="today">
-          <h2>3. Vandaag beginnen</h2>
-          <p class="sub">Dit is de standaardroutine als je aan een bestaand project verdergaat.</p>
-
-          <div class="steps">
-            <div class="step">
-              <div class="step-num">1</div>
-              <div class="platform-mac">Open de bestaande projectmap, bijvoorbeeld <code class="inline">~/Repos/website</code>.</div>
-              <div class="platform-win hidden">Open de bestaande projectmap, bijvoorbeeld <code class="inline">C:\Repos\website</code>.</div>
-            </div>
-            <div class="step">
-              <div class="step-num">2</div>
-              <div>Open die map in de tool waarmee je wilt werken.</div>
-            </div>
-            <div class="step">
-              <div class="step-num">3</div>
-              <div>Doe eerst <code class="inline">git pull</code> om de nieuwste versie van GitHub binnen te halen.</div>
-            </div>
-          </div>
-
-          <div class="command-grid">
-            <div class="cmd platform-mac">
-              <div class="cmd-head">
-                <div class="cmd-title">Start van je werkdag (Mac)</div>
-                <button class="copy-btn" data-copy="cd ~/Repos/website
-git pull">Kopieer</button>
-              </div>
-              <pre><code>cd ~/Repos/website
-git pull</code></pre>
-            </div>
-
-            <div class="cmd platform-win hidden">
-              <div class="cmd-head">
-                <div class="cmd-title">Start van je werkdag (Windows)</div>
-                <button class="copy-btn" data-copy="cd C:\Repos\website
-git pull">Kopieer</button>
-              </div>
-              <pre><code>cd C:\Repos\website
-git pull</code></pre>
-            </div>
-          </div>
-
-          <div class="callout ok">
-            <strong>Waarom git pull?</strong>
-            Dit haalt de nieuwste wijzigingen van GitHub binnen in jouw bestaande lokale clone. Dus: <em>pull in plaats van opnieuw klonen</em>.
-          </div>
-        </section>
-
-        <section class="card" id="terminal">
-          <h2>4. Terminal / PowerShell openen</h2>
-          <p class="sub">Open het project altijd in de juiste map, niet ergens los op je computer.</p>
-
-          <div class="steps platform-mac">
-            <div class="step">
-              <div class="step-num">1</div>
-              <div>Open Finder en ga naar je projectmap, bijvoorbeeld <code class="inline">Repos → website</code>.</div>
-            </div>
-            <div class="step">
-              <div class="step-num">2</div>
-              <div>Rechtsklik in die map.</div>
-            </div>
-            <div class="step">
-              <div class="step-num">3</div>
-              <div>Kies <strong>New Terminal at Folder</strong>.</div>
-            </div>
-            <div class="step">
-              <div class="step-num">4</div>
-              <div>Je Terminal opent dan direct in de juiste repo-map.</div>
-            </div>
-          </div>
-
-          <div class="steps platform-win hidden">
-            <div class="step">
-              <div class="step-num">1</div>
-              <div>Open Verkenner en ga naar je projectmap, bijvoorbeeld <code class="inline">C:\Repos\website</code>.</div>
-            </div>
-            <div class="step">
-              <div class="step-num">2</div>
-              <div>Klik in de adresbalk van de map.</div>
-            </div>
-            <div class="step">
-              <div class="step-num">3</div>
-              <div>Typ <strong>powershell</strong> en druk Enter.</div>
-            </div>
-            <div class="step">
-              <div class="step-num">4</div>
-              <div>PowerShell opent dan direct in de juiste repo-map.</div>
-            </div>
-          </div>
-
-          <div class="callout">
-            <strong>Twijfel je of je goed zit?</strong>
-            Gebruik <code class="inline">git rev-parse --show-toplevel</code>. Dan zie je direct de hoofdmap van de repo.
-          </div>
-        </section>
-
-        <section class="card" id="save-work">
-          <h2>5. Opslaan en pushen</h2>
-          <p class="sub">We gebruiken hiervoor de shortcut <code class="inline">save</code>.</p>
-
-          <div class="command-grid">
-            <div class="cmd">
-              <div class="cmd-head">
-                <div class="cmd-title">Alles opslaan naar GitHub</div>
-                <button class="copy-btn" data-copy="save">Kopieer</button>
-              </div>
-              <pre><code>save</code></pre>
-            </div>
-          </div>
-
-          <div class="callout">
-            <strong>Wat doet save?</strong>
-            <code class="inline">git add .</code> + <code class="inline">git commit -m "update"</code> + <code class="inline">git push</code>
-          </div>
-
-          <div class="steps">
-            <div class="step">
-              <div class="step-num">1</div>
-              <div>Werk in je projectmap.</div>
-            </div>
-            <div class="step">
-              <div class="step-num">2</div>
-              <div>Controleer eventueel met <code class="inline">git status</code> wat er veranderd is.</div>
-            </div>
-            <div class="step">
-              <div class="step-num">3</div>
-              <div>Typ <code class="inline">save</code> als je klaar bent met een logische wijziging.</div>
-            </div>
-          </div>
-        </section>
-
-        <section class="card" id="switch">
-          <h2>6. Wisselen tussen tools</h2>
-          <p class="sub">Dat is prima. Je hoeft alleen niet opnieuw te klonen.</p>
-
-          <div class="steps">
-            <div class="step">
-              <div class="step-num">1</div>
-              <div>Je werkte vanochtend in Claude Code in je projectmap.</div>
-            </div>
-            <div class="step">
-              <div class="step-num">2</div>
-              <div>Later zijn je tokens op en wil je verder in Antigravity, Codex of Conductor.</div>
-            </div>
-            <div class="step">
-              <div class="step-num">3</div>
-              <div>Open dan exact dezelfde map opnieuw.</div>
-            </div>
-            <div class="step">
-              <div class="step-num">4</div>
-              <div>Doe eerst <code class="inline">git pull</code>.</div>
-            </div>
-            <div class="step">
-              <div class="step-num">5</div>
-              <div>Werk verder en eindig weer met <code class="inline">save</code>.</div>
-            </div>
-          </div>
-
-          <div class="callout ok">
-            <strong>De kern</strong>
-            Je wisselt van tool, niet van projectmap.
-          </div>
-        </section>
-
-        <section class="card" id="mistakes">
-          <h2>7. Veelgemaakte fouten</h2>
-          <p class="sub">Hier gaat het meestal mis.</p>
-
-          <div class="mistakes">
-            <div class="mistake">
-              <div class="bad">
-                <h4>Niet goed</h4>
-                Repo opnieuw klonen omdat je naar een andere tool overstapt.
-              </div>
-              <div class="good">
-                <h4>Wel goed</h4>
-                Bestaande repo-map openen en eerst <code class="inline">git pull</code> doen.
-              </div>
-            </div>
-
-            <div class="mistake">
-              <div class="bad">
-                <h4>Niet goed</h4>
-                Werken vanuit Drive, Dropbox of iCloud als actieve repo-map.
-              </div>
-              <div class="good">
-                <h4>Wel goed</h4>
-                Repo lokaal in
-                <span class="platform-mac"><code class="inline">~/Repos</code></span>
-                <span class="platform-win hidden"><code class="inline">C:\Repos</code></span>
-                bewaren en GitHub gebruiken voor sync.
-              </div>
-            </div>
-
-            <div class="mistake">
-              <div class="bad">
-                <h4>Niet goed</h4>
-                Geen idee hebben wat er lokaal veranderd is.
-              </div>
-              <div class="good">
-                <h4>Wel goed</h4>
-                Eerst <code class="inline">git status</code> doen om overzicht te krijgen.
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="card" id="help">
-          <h2>8. Hulp bij problemen</h2>
-          <p class="sub">Met deze commando’s kom je meestal al heel ver.</p>
-
-          <div class="command-grid">
-            <div class="cmd">
-              <div class="cmd-head">
-                <div class="cmd-title">Wat is er veranderd?</div>
-                <button class="copy-btn" data-copy="git status">Kopieer</button>
-              </div>
-              <pre><code>git status</code></pre>
-            </div>
-
-            <div class="cmd">
-              <div class="cmd-head">
-                <div class="cmd-title">Wat zijn de exacte verschillen?</div>
-                <button class="copy-btn" data-copy="git diff">Kopieer</button>
-              </div>
-              <pre><code>git diff</code></pre>
-            </div>
-
-            <div class="cmd">
-              <div class="cmd-head">
-                <div class="cmd-title">Wat is de repo-root?</div>
-                <button class="copy-btn" data-copy="git rev-parse --show-toplevel">Kopieer</button>
-              </div>
-              <pre><code>git rev-parse --show-toplevel</code></pre>
-            </div>
-          </div>
-
-          <div class="faq">
-            <details>
-              <summary>Ik weet niet zeker of ik in de juiste map zit</summary>
-              <p>Doe <code class="inline">git status</code>. Krijg je een normale Git-uitvoer zoals <em>On branch main</em>, dan zit je waarschijnlijk goed. Met <code class="inline">git rev-parse --show-toplevel</code> zie je ook direct de hoofdmap van de repo.</p>
-            </details>
-
-            <details>
-              <summary>Ik heb lokaal dingen veranderd, maar nog niet gepusht</summary>
-              <p>Doe eerst <code class="inline">git status</code>. Gooi je map niet weg. Kijk rustig wat er veranderd is. Vaak kun je gewoon doorgaan en daarna <code class="inline">save</code> doen.</p>
-            </details>
-
-            <details>
-              <summary>Ik wil vandaag alleen de nieuwste versie ophalen</summary>
-              <p>Open de bestaande repo-map en gebruik <code class="inline">git pull</code>. Dat is meestal alles wat je nodig hebt om verder te werken.</p>
-            </details>
-          </div>
-        </section>
-      </main>
     </div>
 
-    <div class="footer">Morgen Academy • interne Git workflow</div>
+    <div class="card" id="setup-first">
+      <h2>0. Eenmalig instellen (belangrijk)</h2>
+      <p class="sub">Dit moet iedereen één keer doen voordat de workflow werkt.</p>
+
+      <div class="steps">
+
+        <div class="step">
+          <div class="num">1</div>
+          <div>Installeer Git: <a href="https://git-scm.com" target="_blank">git-scm.com</a></div>
+        </div>
+
+        <div class="step">
+          <div class="num">2</div>
+          <div>Maak een map voor projecten
+            <span class="mac">bijvoorbeeld <b>~/Repos</b></span>
+            <span class="win hidden">bijvoorbeeld <b>C:\Repos</b></span>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="num">3</div>
+          <div>Clone de GitHub repo.</div>
+        </div>
+
+      </div>
+
+      <div class="cmd mac">
+        <div class="cmd-head">Clone repo (Mac) <button class="copy"
+            data-copy="cd ~/Repos\ngit clone REPO-URL project">copy</button></div>
+        <pre><code>cd ~/Repos
+git clone REPO-URL project</code></pre>
+      </div>
+
+      <div class="cmd win hidden">
+        <div class="cmd-head">Clone repo (Windows) <button class="copy"
+            data-copy="cd C:\Repos\ngit clone REPO-URL project">copy</button></div>
+        <pre><code>cd C:\Repos
+git clone REPO-URL project</code></pre>
+      </div>
+
+    </div>
+
+    <div class="card">
+      <h2>1. Save shortcut installeren</h2>
+      <p class="sub">Dit zorgt dat het commando <b>save</b> werkt.</p>
+
+      <div class="cmd mac">
+        <div class="cmd-head">Open config (Mac) <button class="copy" data-copy="nano ~/.zshrc">copy</button></div>
+        <pre><code>nano ~/.zshrc</code></pre>
+      </div>
+
+      <div class="cmd">
+        <div class="cmd-head">Voeg toe <button class="copy" data-copy="alias save='git add . && git commit -m \"
+            update\" && git push'">copy</button></div>
+        <pre><code>alias save="git add . && git commit -m 'update' && git push"</code></pre>
+      </div>
+
+      <div class="cmd mac">
+        <div class="cmd-head">Herlaad terminal <button class="copy" data-copy="source ~/.zshrc">copy</button></div>
+        <pre><code>source ~/.zshrc</code></pre>
+      </div>
+
+    </div>
+
+    <div class="card">
+      <h2>2. Terminal openen in de juiste map</h2>
+      <p class="sub">Dit is de stap waar beginners vaak vastlopen.</p>
+
+      <div class="steps mac">
+
+        <div class="step">
+          <div class="num">1</div>
+          <div>Open Finder.</div>
+        </div>
+
+        <div class="step">
+          <div class="num">2</div>
+          <div>Ga naar je projectmap.</div>
+        </div>
+
+        <div class="step">
+          <div class="num">3</div>
+          <div>Rechtsklik → <b>Open Terminal at Folder</b>.</div>
+        </div>
+
+      </div>
+
+      <div class="steps win hidden">
+
+        <div class="step">
+          <div class="num">1</div>
+          <div>Open Verkenner.</div>
+        </div>
+
+        <div class="step">
+          <div class="num">2</div>
+          <div>Ga naar je projectmap.</div>
+        </div>
+
+        <div class="step">
+          <div class="num">3</div>
+          <div>Klik adresbalk → typ <b>powershell</b>.</div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="card" id="start-today">
+      <h2>3. Begin van je werkdag</h2>
+
+      <div class="cmd">
+        <div class="cmd-head">Update project <button class="copy" data-copy="git pull">copy</button></div>
+        <pre><code>git pull</code></pre>
+      </div>
+
+    </div>
+
+    <div class="card">
+      <h2>4. Werk opslaan</h2>
+
+      <div class="cmd">
+        <div class="cmd-head">Save <button class="copy" data-copy="save">copy</button></div>
+        <pre><code>save</code></pre>
+      </div>
+
+    </div>
+
+    <div class="card">
+      <h2>5. Wisselen tussen AI tools</h2>
+
+      <div class="steps">
+
+        <div class="step">
+          <div class="num">1</div>
+          <div>Werk in Claude Code.</div>
+        </div>
+
+        <div class="step">
+          <div class="num">2</div>
+          <div>Tokens op? Open dezelfde map in een andere tool.</div>
+        </div>
+
+        <div class="step">
+          <div class="num">3</div>
+          <div>Gebruik <b>git pull</b>.</div>
+        </div>
+
+        <div class="step">
+          <div class="num">4</div>
+          <div>Werk verder.</div>
+        </div>
+
+        <div class="step">
+          <div class="num">5</div>
+          <div>Gebruik <b>save</b>.</div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="card panic">
+      <h2>🚨 Ik zit vast</h2>
+
+      <div class="cmd">
+        <div class="cmd-head">Check status <button class="copy" data-copy="git status">copy</button></div>
+        <pre><code>git status</code></pre>
+      </div>
+
+      <div class="cmd">
+        <div class="cmd-head">Update repo <button class="copy" data-copy="git pull">copy</button></div>
+        <pre><code>git pull</code></pre>
+      </div>
+
+    </div>
+
+    <div class="footer">Morgen Academy – interne developer workflow</div>
+
   </div>
 
   <script>
-    let currentPlatform = 'mac';
 
-    function setPlatform(platform){
-      currentPlatform = platform;
+    function setPlatform(p) {
 
-      document.getElementById('btn-mac').classList.toggle('active', platform === 'mac');
-      document.getElementById('btn-win').classList.toggle('active', platform === 'win');
+      const macEls = document.querySelectorAll('.mac')
+      const winEls = document.querySelectorAll('.win')
 
-      document.querySelectorAll('.platform-mac').forEach(el => {
-        el.classList.toggle('hidden', platform !== 'mac');
-      });
-
-      document.querySelectorAll('.platform-win').forEach(el => {
-        el.classList.toggle('hidden', platform !== 'win');
-      });
+      if (p === 'mac') {
+        macEls.forEach(e => e.classList.remove('hidden'))
+        winEls.forEach(e => e.classList.add('hidden'))
+        macBtn.classList.add('active')
+        winBtn.classList.remove('active')
+      } else {
+        winEls.forEach(e => e.classList.remove('hidden'))
+        macEls.forEach(e => e.classList.add('hidden'))
+        winBtn.classList.add('active')
+        macBtn.classList.remove('active')
+      }
     }
 
-    document.querySelectorAll('[data-copy]').forEach(button => {
-      button.addEventListener('click', async () => {
-        const text = button.getAttribute('data-copy');
-        const original = button.textContent;
-        try{
-          await navigator.clipboard.writeText(text);
-          button.textContent = 'Gekopieerd';
-          setTimeout(() => {
-            button.textContent = original;
-          }, 1200);
-        } catch (error){
-          button.textContent = 'Lukte niet';
-          setTimeout(() => {
-            button.textContent = original;
-          }, 1200);
-        }
-      });
-    });
+
+    document.querySelectorAll('.copy').forEach(btn => {
+      btn.addEventListener('click', () => {
+
+        const text = btn.dataset.copy
+        navigator.clipboard.writeText(text)
+
+        btn.innerText = 'copied'
+        setTimeout(() => btn.innerText = 'copy', 1000)
+
+      })
+    })
+
   </script>
+
 </body>
+
 </html>
