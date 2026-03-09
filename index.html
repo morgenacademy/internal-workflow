@@ -246,6 +246,8 @@
       overflow-x: auto;
       font-size: 14px;
       line-height: 1.45;
+      white-space: pre-wrap;
+      word-break: break-word;
     }
 
     code.inline {
@@ -354,12 +356,12 @@
       </div>
 
       <div class="nav-grid">
-        <a class="primary" href="#start-today">Ik begin vandaag</a>
-        <a href="#new-project">Nieuw project</a>
-        <a href="#existing-project">Bestaand project</a>
-        <a href="#pre-setup">Vooraf instellen</a>
-        <a href="#save-work">Ik ga opslaan</a>
-        <a href="#panic">Ik zit vast</a>
+        <a class="primary" href="#pre-setup">1. Vooraf instellen</a>
+        <a href="#existing-project">2. Bestaand project</a>
+        <a href="#new-project">3. Nieuw project</a>
+        <a href="#start-today">4. Ik begin vandaag</a>
+        <a href="#save-work">5. Ik ga opslaan</a>
+        <a href="#panic">6. Ik zit vast</a>
       </div>
     </div>
 
@@ -398,7 +400,7 @@
     </div>
 
     <div class="card" id="pre-setup">
-      <h2>Vooraf instellen</h2>
+      <h2>1. Vooraf instellen</h2>
       <p class="sub">Deze dingen hoef je maar één keer te doen. Daarna wordt de rest makkelijker.</p>
 
       <div class="steps">
@@ -406,16 +408,19 @@
           <div class="num">1</div>
           <div>Installeer Git op je computer via <a href="https://git-scm.com" target="_blank">git-scm.com</a>.</div>
         </div>
+
         <div class="step">
           <div class="num">2</div>
-          <div>Maak één vaste map voor projecten:
-            <span class="platform-mac"><code class="inline">~/Repos</code></span>
-            <span class="platform-win hidden"><code class="inline">C:\Repos</code></span>.
+          <div>
+            Maak in je <strong>Documenten</strong> een map aan met de naam <code class="inline">Repos</code>.
+            <br><br>
+            Daar zet je voortaan al je projecten in. Zo weet je altijd waar ze staan.
           </div>
         </div>
+
         <div class="step">
           <div class="num">3</div>
-          <div>Werk voortaan vanuit die mapstructuur, zodat je altijd weet waar je projecten staan.</div>
+          <div>Werk voortaan vanuit die mapstructuur, zodat je niet hoeft te zoeken waar een project staat.</div>
         </div>
       </div>
 
@@ -423,22 +428,63 @@
       <p class="sub">Dit is optioneel, maar handig. Dan hoef je later niet steeds drie losse Git-commando’s te typen.
       </p>
 
-      <div class="cmd platform-mac">
-        <div class="cmd-head">Open shell-configuratie (Mac) <button class="copy" data-copy="nano ~/.zshrc">copy</button>
+      <div class="explain">
+        <strong>Wat is hier het doel?</strong>
+        Als je deze shortcut instelt, kun je later in Terminal gewoon <code class="inline">save</code> typen in plaats
+        van drie losse regels.
+      </div>
+
+      <div class="steps platform-mac">
+        <div class="step">
+          <div class="num">1</div>
+          <div>Open de app <strong>Terminal</strong>.</div>
         </div>
+        <div class="step">
+          <div class="num">2</div>
+          <div>Kopieer het eerste commando hieronder, plak het in Terminal en druk op <strong>Enter</strong>.</div>
+        </div>
+        <div class="step">
+          <div class="num">3</div>
+          <div>Kopieer daarna het tweede commando hieronder, plak het in Terminal en druk weer op
+            <strong>Enter</strong>.</div>
+        </div>
+        <div class="step">
+          <div class="num">4</div>
+          <div>Kopieer daarna het derde commando hieronder, plak het in Terminal en druk weer op <strong>Enter</strong>.
+          </div>
+        </div>
+      </div>
+
+      <div class="cmd platform-mac">
+        <div class="cmd-head">Stap 1 (Mac) <button class="copy" data-copy="nano ~/.zshrc">copy</button></div>
         <pre><code>nano ~/.zshrc</code></pre>
       </div>
 
       <div class="cmd platform-mac">
-        <div class="cmd-head">Voeg deze regel toe (Mac) <button class="copy"
+        <div class="cmd-head">Stap 2 (Mac) <button class="copy"
             data-copy="alias save=&quot;git add . && git commit -m 'update' && git push&quot;">copy</button></div>
         <pre><code>alias save="git add . && git commit -m 'update' && git push"</code></pre>
       </div>
 
       <div class="cmd platform-mac">
-        <div class="cmd-head">Activeer de wijziging (Mac) <button class="copy" data-copy="source ~/.zshrc">copy</button>
-        </div>
+        <div class="cmd-head">Stap 3 (Mac) <button class="copy" data-copy="source ~/.zshrc">copy</button></div>
         <pre><code>source ~/.zshrc</code></pre>
+      </div>
+
+      <div class="explain platform-mac">
+        <strong>Goed om te weten</strong>
+        Hierna werkt het commando <code class="inline">save</code> in elke Terminal die je opnieuw opent.
+      </div>
+
+      <div class="steps platform-win hidden">
+        <div class="step">
+          <div class="num">1</div>
+          <div>Windows-gebruikers hoeven dit stukje voorlopig niet te doen.</div>
+        </div>
+        <div class="step">
+          <div class="num">2</div>
+          <div>Gebruik op Windows voorlopig gewoon de 3 losse Git-commando’s verderop op deze pagina.</div>
+        </div>
       </div>
 
       <div class="cmd platform-win hidden">
@@ -458,7 +504,7 @@ git push</code></pre>
     </div>
 
     <div class="card" id="existing-project">
-      <h2>Bestaand project</h2>
+      <h2>2. Bestaand project</h2>
       <p class="sub">Gebruik deze route als het project al op GitHub staat.</p>
 
       <div class="explain">
@@ -484,17 +530,28 @@ git push</code></pre>
         </div>
       </div>
 
+      <div class="steps">
+        <div class="step">
+          <div class="num">1</div>
+          <div>Open Terminal (Mac) of PowerShell (Windows).</div>
+        </div>
+        <div class="step">
+          <div class="num">2</div>
+          <div>Typ het commando hieronder en druk op <strong>Enter</strong>.</div>
+        </div>
+      </div>
+
       <div class="cmd platform-mac">
-        <div class="cmd-head">Project ophalen van GitHub (Mac) <button class="copy" data-copy="cd ~/Repos
+        <div class="cmd-head">Project ophalen van GitHub (Mac) <button class="copy" data-copy="cd ~/Documents/Repos
 git clone REPO-URL projectnaam">copy</button></div>
-        <pre><code>cd ~/Repos
+        <pre><code>cd ~/Documents/Repos
 git clone REPO-URL projectnaam</code></pre>
       </div>
 
       <div class="cmd platform-win hidden">
-        <div class="cmd-head">Project ophalen van GitHub (Windows) <button class="copy" data-copy="cd C:\Repos
+        <div class="cmd-head">Project ophalen van GitHub (Windows) <button class="copy" data-copy="cd %USERPROFILE%\Documents\Repos
 git clone REPO-URL projectnaam">copy</button></div>
-        <pre><code>cd C:\Repos
+        <pre><code>cd %USERPROFILE%\Documents\Repos
 git clone REPO-URL projectnaam</code></pre>
       </div>
 
@@ -507,7 +564,7 @@ git clone REPO-URL projectnaam</code></pre>
     </div>
 
     <div class="card" id="new-project">
-      <h2>Nieuw project</h2>
+      <h2>3. Nieuw project</h2>
       <p class="sub">Gebruik deze route als het project nog niet op GitHub staat.</p>
 
       <div class="explain">
@@ -531,7 +588,8 @@ git clone REPO-URL projectnaam</code></pre>
         </div>
         <div class="step">
           <div class="num">4</div>
-          <div>Voer daarna onderstaande commando’s uit om die map voor het eerst op GitHub te zetten.</div>
+          <div>Kopieer daarna het blok hieronder, plak het in Terminal of PowerShell, vervang <code
+              class="inline">REPO-URL</code> en druk op <strong>Enter</strong>.</div>
         </div>
       </div>
 
@@ -555,7 +613,7 @@ git push -u origin main</code></pre>
     </div>
 
     <div class="card" id="start-today">
-      <h2>Ik begin vandaag</h2>
+      <h2>4. Ik begin vandaag</h2>
       <p class="sub">Gebruik deze stappen als je verder werkt aan een project dat al als Git-project bestaat.</p>
 
       <h3>Hoe kom ik in de juiste map?</h3>
@@ -567,14 +625,18 @@ git push -u origin main</code></pre>
         </div>
         <div class="step">
           <div class="num">2</div>
-          <div>Ga naar je Git-projectmap, bijvoorbeeld <code class="inline">Repos → internal-workflow</code>.</div>
+          <div>Ga naar je projectmap in <strong>Documenten → Repos</strong>.</div>
         </div>
         <div class="step">
           <div class="num">3</div>
-          <div>Rechtsklik in die map en kies <strong>Open Terminal at Folder</strong>.</div>
+          <div>Open de map van het project, bijvoorbeeld <code class="inline">internal-workflow</code>.</div>
         </div>
         <div class="step">
           <div class="num">4</div>
+          <div>Rechtsklik in die map en kies <strong>Open Terminal at Folder</strong>.</div>
+        </div>
+        <div class="step">
+          <div class="num">5</div>
           <div>Nu staat je Terminal meteen op de juiste plek. Dán typ je <code class="inline">git pull</code>.</div>
         </div>
       </div>
@@ -586,14 +648,18 @@ git push -u origin main</code></pre>
         </div>
         <div class="step">
           <div class="num">2</div>
-          <div>Ga naar je Git-projectmap, bijvoorbeeld <code class="inline">C:\Repos\internal-workflow</code>.</div>
+          <div>Ga naar <strong>Documenten → Repos</strong>.</div>
         </div>
         <div class="step">
           <div class="num">3</div>
-          <div>Klik in de adresbalk, typ <strong>powershell</strong> en druk Enter.</div>
+          <div>Open de map van het project.</div>
         </div>
         <div class="step">
           <div class="num">4</div>
+          <div>Klik in de adresbalk, typ <strong>powershell</strong> en druk op <strong>Enter</strong>.</div>
+        </div>
+        <div class="step">
+          <div class="num">5</div>
           <div>PowerShell opent nu in de juiste map. Dán typ je <code class="inline">git pull</code>.</div>
         </div>
       </div>
@@ -605,7 +671,7 @@ git push -u origin main</code></pre>
     </div>
 
     <div class="card" id="save-work">
-      <h2>Ik ga opslaan</h2>
+      <h2>5. Ik ga opslaan</h2>
       <p class="sub">Je werkt meestal in Claude Code, Codex, Antigravity of Conductor. Het opslaan doe je daarna in
         Terminal of PowerShell, in dezelfde Git-projectmap.</p>
 
@@ -668,7 +734,7 @@ git status</code></pre>
     </div>
 
     <div class="card panic" id="panic">
-      <h2>Ik zit vast</h2>
+      <h2>6. Ik zit vast</h2>
       <p class="sub">Doe dan eerst dit. Meestal kom je hier al mee verder.</p>
 
       <div class="cmd">
