@@ -2,802 +2,806 @@
 <html lang="nl">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Morgen Academy – Git workflow</title>
-  <style>
-    :root {
-      --bg: #f6f3ee;
-      --panel: #ffffff;
-      --soft: #fbf8f3;
-      --text: #1a1a1a;
-      --muted: #6a645d;
-      --line: #ddd5c9;
-      --accent: #111111;
-      --ok: #eef6ef;
-      --warn: #fff5e8;
-      --panic: #fff1f1;
-      --shadow: 0 10px 28px rgba(0, 0, 0, .05);
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Morgen Academy – Git workflow</title>
+    <style>
+        :root {
+            --bg: #f6f3ee;
+            --panel: #ffffff;
+            --soft: #fbf8f3;
+            --text: #1a1a1a;
+            --muted: #6a645d;
+            --line: #ddd5c9;
+            --accent: #111111;
+            --accent-soft: #f1ebe1;
+            --ok: #eef6ef;
+            --warn: #fff5e8;
+            --panic: #fff1f1;
+            --shadow: 0 10px 28px rgba(0, 0, 0, .05);
+        }
 
-    * {
-      box-sizing: border-box
-    }
+        * {
+            box-sizing: border-box
+        }
 
-    html {
-      scroll-behavior: smooth
-    }
+        html {
+            scroll-behavior: smooth
+        }
 
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif;
-      background: linear-gradient(180deg, #f8f5ef, #f2ede5);
-      color: var(--text);
-      line-height: 1.6;
-    }
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif;
+            background: linear-gradient(180deg, #f8f5ef, #f2ede5);
+            color: var(--text);
+            line-height: 1.6;
+        }
 
-    .wrap {
-      max-width: 1100px;
-      margin: auto;
-      padding: 28px 20px 80px;
-    }
+        .wrap {
+            max-width: 1120px;
+            margin: auto;
+            padding: 28px 20px 80px;
+        }
 
-    .hero,
-    .card {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
-      border-radius: 24px;
-    }
+        .hero,
+        .card {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            box-shadow: var(--shadow);
+            border-radius: 24px;
+        }
 
-    .hero {
-      padding: 30px;
-      margin-bottom: 24px;
-    }
+        .hero {
+            padding: 30px;
+            margin-bottom: 24px;
+        }
 
-    .hero h1 {
-      margin: 0 0 10px;
-      font-size: 40px;
-      letter-spacing: -.03em;
-    }
+        .hero h1 {
+            margin: 0 0 10px;
+            font-size: 42px;
+            letter-spacing: -.03em;
+        }
 
-    .hero p {
-      margin: 0;
-      color: var(--muted);
-      max-width: 780px;
-      font-size: 18px;
-    }
+        .hero p {
+            margin: 0;
+            color: var(--muted);
+            max-width: 820px;
+            font-size: 18px;
+        }
 
-    .topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-bottom: 18px;
-    }
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+        }
 
-    .toggle {
-      display: inline-flex;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      overflow: hidden;
-      flex-shrink: 0;
-    }
+        .toggle {
+            display: inline-flex;
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            overflow: hidden;
+            flex-shrink: 0;
+        }
 
-    .toggle button {
-      border: 0;
-      padding: 9px 16px;
-      font-weight: 700;
-      background: #f1ebe1;
-      cursor: pointer;
-    }
+        .toggle button {
+            border: 0;
+            padding: 9px 16px;
+            font-weight: 700;
+            background: var(--accent-soft);
+            cursor: pointer;
+        }
 
-    .toggle button.active {
-      background: var(--accent);
-      color: #fff;
-    }
+        .toggle button.active {
+            background: var(--accent);
+            color: #fff;
+        }
 
-    .nav-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-top: 16px;
-    }
+        .card {
+            padding: 24px;
+            margin-bottom: 20px;
+        }
 
-    .nav-grid a {
-      display: block;
-      text-decoration: none;
-      padding: 14px;
-      border-radius: 14px;
-      border: 1px solid var(--line);
-      background: #f7f2ea;
-      color: var(--text);
-      font-weight: 700;
-      text-align: center;
-    }
+        .card h2 {
+            margin: 0 0 8px;
+            font-size: 28px;
+            letter-spacing: -.02em;
+        }
 
-    .nav-grid a.primary {
-      background: var(--accent);
-      color: #fff;
-      border-color: var(--accent);
-    }
+        .card h3 {
+            margin: 18px 0 8px;
+            font-size: 19px;
+        }
 
-    .card {
-      padding: 24px;
-      margin-bottom: 20px;
-    }
+        .sub {
+            color: var(--muted);
+            margin: 0 0 14px;
+        }
 
-    .card h2 {
-      margin: 0 0 8px;
-      font-size: 28px;
-      letter-spacing: -.02em;
-    }
+        .explain {
+            background: var(--soft);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 14px 16px;
+            margin: 14px 0;
+        }
 
-    .card h3 {
-      margin: 18px 0 8px;
-      font-size: 18px;
-    }
+        .explain strong {
+            display: block;
+            margin-bottom: 4px;
+        }
 
-    .sub {
-      color: var(--muted);
-      margin: 0 0 14px;
-    }
+        .flow {
+            display: grid;
+            gap: 10px;
+            margin-top: 14px;
+        }
 
-    .explain {
-      background: var(--soft);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 14px 16px;
-      margin: 14px 0;
-    }
+        .flow-box {
+            background: var(--soft);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 14px 16px;
+            font-weight: 600;
+        }
 
-    .explain strong {
-      display: block;
-      margin-bottom: 4px;
-    }
+        .flow-arrow {
+            text-align: center;
+            color: var(--muted);
+            font-size: 24px;
+            line-height: 1;
+        }
 
-    .flow {
-      display: grid;
-      gap: 10px;
-      margin-top: 12px;
-    }
+        .benefits {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin-top: 14px;
+        }
 
-    .flow-box {
-      background: var(--soft);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 14px 16px;
-      font-weight: 600;
-    }
+        .benefit {
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            background: var(--soft);
+            padding: 16px;
+        }
 
-    .flow-arrow {
-      text-align: center;
-      color: var(--muted);
-      font-size: 24px;
-      line-height: 1;
-    }
+        .benefit h4 {
+            margin: 0 0 8px;
+            font-size: 16px;
+        }
 
-    .steps {
-      display: grid;
-      gap: 12px;
-      margin-top: 12px;
-    }
+        .route-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+            margin-top: 16px;
+        }
 
-    .step {
-      display: grid;
-      grid-template-columns: 36px 1fr;
-      gap: 12px;
-      align-items: start;
-      background: var(--soft);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 14px;
-    }
+        .route {
+            display: block;
+            text-decoration: none;
+            color: var(--text);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: var(--soft);
+            padding: 18px;
+        }
 
-    .num {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: var(--accent);
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      flex-shrink: 0;
-    }
+        .route strong {
+            display: block;
+            font-size: 18px;
+            margin-bottom: 6px;
+        }
 
-    .cmd {
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      overflow: hidden;
-      margin-top: 14px;
-    }
+        .route.primary {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+        }
 
-    .cmd-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      background: #f5efe6;
-      padding: 10px 14px;
-      border-bottom: 1px solid var(--line);
-      font-size: 14px;
-      font-weight: 700;
-    }
+        .steps {
+            display: grid;
+            gap: 12px;
+            margin-top: 12px;
+        }
 
-    .copy {
-      background: var(--accent);
-      color: #fff;
-      border: 0;
-      padding: 7px 10px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 700;
-      flex-shrink: 0;
-    }
+        .step {
+            display: grid;
+            grid-template-columns: 36px 1fr;
+            gap: 12px;
+            align-items: start;
+            background: var(--soft);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 14px;
+        }
 
-    pre {
-      margin: 0;
-      padding: 14px;
-      background: #111;
-      color: #f8f8f8;
-      overflow-x: auto;
-      font-size: 14px;
-      line-height: 1.45;
-      white-space: pre-wrap;
-      word-break: break-word;
-    }
+        .num {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
 
-    code.inline {
-      background: #f1ebe1;
-      border: 1px solid var(--line);
-      padding: 2px 6px;
-      border-radius: 8px;
-      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-      font-size: .95em;
-    }
+        .cmd {
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-top: 14px;
+        }
 
-    .grid-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
+        .cmd-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            background: #f5efe6;
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--line);
+            font-size: 14px;
+            font-weight: 700;
+        }
 
-    .box {
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 16px;
-      background: var(--soft);
-    }
+        .copy {
+            background: var(--accent);
+            color: #fff;
+            border: 0;
+            padding: 7px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
 
-    .box h4 {
-      margin: 0 0 8px;
-      font-size: 16px;
-    }
+        pre {
+            margin: 0;
+            padding: 14px;
+            background: #111;
+            color: #f8f8f8;
+            overflow-x: auto;
+            font-size: 14px;
+            line-height: 1.45;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
 
-    .choice-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      margin-top: 14px;
-    }
+        code.inline {
+            background: var(--accent-soft);
+            border: 1px solid var(--line);
+            padding: 2px 6px;
+            border-radius: 8px;
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: .95em;
+        }
 
-    .choice {
-      border-radius: 16px;
-      padding: 16px;
-      border: 1px solid var(--line);
-    }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
 
-    .choice.ok {
-      background: var(--ok);
-      border-color: #d6e7d8;
-    }
+        .box {
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 16px;
+            background: var(--soft);
+        }
 
-    .choice.warn {
-      background: var(--warn);
-      border-color: #ead8ae;
-    }
+        .box h4 {
+            margin: 0 0 8px;
+            font-size: 16px;
+        }
 
-    .choice h4 {
-      margin: 0 0 8px;
-      font-size: 17px;
-    }
+        .hidden {
+            display: none
+        }
 
-    .panic {
-      background: var(--panic);
-      border: 1px solid #e8caca;
-      border-radius: 18px;
-      padding: 18px;
-    }
+        .footer {
+            text-align: center;
+            color: var(--muted);
+            font-size: 14px;
+            margin-top: 22px;
+        }
 
-    .hidden {
-      display: none
-    }
+        @media (max-width:900px) {
 
-    .footer {
-      text-align: center;
-      color: var(--muted);
-      font-size: 14px;
-      margin-top: 22px;
-    }
+            .route-grid,
+            .benefits,
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
 
-    @media (max-width:900px) {
-
-      .nav-grid,
-      .grid-2,
-      .choice-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero h1 {
-        font-size: 34px;
-      }
-    }
-  </style>
+            .hero h1 {
+                font-size: 34px;
+            }
+        }
+    </style>
 </head>
 
 <body>
-  <div class="wrap">
+    <div class="wrap">
 
-    <div class="hero">
-      <div class="topbar">
-        <div>
-          <h1>Morgen Academy – Git workflow</h1>
-          <p>Deze pagina is bedoeld voor mensen die niet dagelijks met Git of Terminal werken. Daarom leggen we
-            hieronder uit wat je moet doen, waar je het doet en wanneer je welke stap gebruikt.</p>
+        <div class="hero">
+            <div class="topbar">
+                <div>
+                    <h1>Morgen Academy – Git workflow</h1>
+                    <p>Zo werken we samen aan websites en tools zonder losse versies, kwijtgeraakte bestanden of
+                        onduidelijkheid over wat de nieuwste versie is.</p>
+                </div>
+
+                <div class="toggle">
+                    <button id="macBtn" class="active" onclick="setPlatform('mac')">Mac</button>
+                    <button id="winBtn" onclick="setPlatform('win')">Windows</button>
+                </div>
+            </div>
+
+            <div class="flow">
+                <div class="flow-box">1. GitHub bevat de centrale versie van een project</div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-box">2. Jij haalt dat project naar je computer, of zet het er voor het eerst op</div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-box">3. Je werkt in die projectmap met Claude, Codex, Conductor of Antigravity</div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-box">4. Daarna stuur je je wijzigingen weer terug naar GitHub</div>
+            </div>
+
+            <div class="benefits">
+                <div class="benefit">
+                    <h4>Waarom doen we dit?</h4>
+                    <p>Omdat iedereen dan aan dezelfde versie werkt en niet met losse kopieën hoeft te mailen of appen.
+                    </p>
+                </div>
+                <div class="benefit">
+                    <h4>Wat levert het op?</h4>
+                    <p>Je weet sneller wat de nieuwste versie is, je kunt makkelijker samenwerken en je raakt minder
+                        snel werk kwijt.</p>
+                </div>
+                <div class="benefit">
+                    <h4>Wat is een project?</h4>
+                    <p>Gewoon een map op je computer met bestanden zoals <code class="inline">index.html</code>,
+                        afbeeldingen en scripts.</p>
+                </div>
+            </div>
         </div>
 
-        <div class="toggle">
-          <button id="macBtn" class="active" onclick="setPlatform('mac')">Mac</button>
-          <button id="winBtn" onclick="setPlatform('win')">Windows</button>
-        </div>
-      </div>
+        <div class="card">
+            <h2>Kies waar jij nu bent</h2>
+            <p class="sub">Klik op de situatie die op jou van toepassing is. Zo hoef je alleen te lezen wat nu relevant
+                is.</p>
 
-      <div class="nav-grid">
-        <a class="primary" href="#pre-setup">1. Vooraf instellen</a>
-        <a href="#existing-project">2. Bestaand project</a>
-        <a href="#new-project">3. Nieuw project</a>
-        <a href="#start-today">4. Ik begin vandaag</a>
-        <a href="#save-work">5. Ik ga opslaan</a>
-        <a href="#panic">6. Ik zit vast</a>
-      </div>
-    </div>
+            <div class="route-grid">
+                <a class="route primary" href="#pre-setup">
+                    <strong>1. Ik gebruik dit voor het eerst</strong>
+                    Git installeren, mapstructuur aanmaken en optioneel de save-shortcut instellen.
+                </a>
 
-    <div class="card">
-      <h2>Eerst het idee in gewone taal</h2>
-      <p class="sub">GitHub is de centrale plek waar de laatste versie van een project staat.</p>
+                <a class="route" href="#existing-project">
+                    <strong>2. Ik werk aan een bestaand project</strong>
+                    Het project staat al op GitHub en ik wil het naar mijn computer halen.
+                </a>
 
-      <div class="flow">
-        <div class="flow-box">1. GitHub bevat de centrale versie van het project</div>
-        <div class="flow-arrow">↓</div>
-        <div class="flow-box">2. Jij haalt dat project naar je computer of zet het er voor het eerst op</div>
-        <div class="flow-arrow">↓</div>
-        <div class="flow-box">3. Je werkt in die projectmap met Claude, Codex, Conductor of Antigravity</div>
-        <div class="flow-arrow">↓</div>
-        <div class="flow-box">4. Daarna stuur je je wijzigingen weer terug naar GitHub</div>
-      </div>
+                <a class="route" href="#new-project">
+                    <strong>3. Ik heb een nieuw project</strong>
+                    Het project staat nog niet op GitHub en moet daar voor het eerst op gezet worden.
+                </a>
 
-      <div class="grid-2" style="margin-top:14px;">
-        <div class="box">
-          <h4>Wat bedoelen we met “project”?</h4>
-          <p>Met “project” bedoelen we gewoon de map op je computer waar de bestanden in staan. Bijvoorbeeld een map met
-            <code class="inline">index.html</code>, afbeeldingen, styles en scripts.</p>
-        </div>
-        <div class="box">
-          <h4>Wat is de hoofdregel?</h4>
-          <p>Je gebruikt steeds dezelfde <strong>Git-projectmap</strong>, ook als je wisselt tussen Claude, Codex,
-            Conductor of Antigravity. De tool mag wisselen. De map niet.</p>
-        </div>
-      </div>
+                <a class="route" href="#start-today">
+                    <strong>4. Ik begin vandaag</strong>
+                    Ik wil aan een project verder werken dat al bestaat.
+                </a>
 
-      <div class="explain">
-        <strong>Belangrijk</strong>
-        Git-commando’s zoals <code class="inline">git pull</code>, <code class="inline">git status</code> en <code
-          class="inline">git push</code> werken alleen in een map die al aan Git gekoppeld is.
-      </div>
-    </div>
+                <a class="route" href="#save-work">
+                    <strong>5. Ik ben klaar en wil opslaan</strong>
+                    Ik heb gewerkt en wil mijn wijzigingen naar GitHub sturen.
+                </a>
 
-    <div class="card" id="pre-setup">
-      <h2>1. Vooraf instellen</h2>
-      <p class="sub">Deze dingen hoef je maar één keer te doen. Daarna wordt de rest makkelijker.</p>
-
-      <div class="steps">
-        <div class="step">
-          <div class="num">1</div>
-          <div>Installeer Git op je computer via <a href="https://git-scm.com" target="_blank">git-scm.com</a>.</div>
+                <a class="route" href="#panic">
+                    <strong>6. Ik zit vast</strong>
+                    Ik weet niet meer wat de nieuwste versie is of ik krijg een foutmelding.
+                </a>
+            </div>
         </div>
 
-        <div class="step">
-          <div class="num">2</div>
-          <div>
-            Maak in je <strong>Documenten</strong> een map aan met de naam <code class="inline">Repos</code>.
-            <br><br>
-            Daar zet je voortaan al je projecten in. Zo weet je altijd waar ze staan.
-          </div>
+        <div class="card" id="pre-setup">
+            <h2>1. Ik gebruik dit voor het eerst</h2>
+            <p class="sub">Deze dingen hoef je maar één keer te doen. Daarna wordt de rest makkelijker.</p>
+
+            <div class="steps">
+                <div class="step">
+                    <div class="num">1</div>
+                    <div>Installeer Git op je computer via <a href="https://git-scm.com"
+                            target="_blank">git-scm.com</a>.</div>
+                </div>
+
+                <div class="step">
+                    <div class="num">2</div>
+                    <div>
+                        Maak in je <strong>Documenten</strong> een map aan met de naam <code
+                            class="inline">Repos</code>.
+                        <br><br>
+                        Daar zet je voortaan al je projecten in. Zo weet je altijd waar ze staan.
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="num">3</div>
+                    <div>Werk voortaan vanuit die mapstructuur, zodat je niet hoeft te zoeken waar een project staat.
+                    </div>
+                </div>
+            </div>
+
+            <h3>Save shortcut instellen</h3>
+            <p class="sub">Dit is optioneel, maar handig. Dan hoef je later niet steeds drie losse Git-commando’s te
+                typen.</p>
+
+            <div class="explain">
+                <strong>Waarom zou je dit doen?</strong>
+                Als je dit instelt, kun je later in Terminal gewoon <code class="inline">save</code> typen. Zonder deze
+                shortcut moet je steeds drie losse regels typen.
+            </div>
+
+            <div class="steps platform-mac">
+                <div class="step">
+                    <div class="num">1</div>
+                    <div>Open de app <strong>Terminal</strong>.</div>
+                </div>
+                <div class="step">
+                    <div class="num">2</div>
+                    <div>Kopieer het eerste commando hieronder, plak het in Terminal en druk op <strong>Enter</strong>.
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="num">3</div>
+                    <div>Kopieer daarna het tweede commando hieronder, plak het in Terminal en druk weer op
+                        <strong>Enter</strong>.</div>
+                </div>
+                <div class="step">
+                    <div class="num">4</div>
+                    <div>Kopieer daarna het derde commando hieronder, plak het in Terminal en druk weer op
+                        <strong>Enter</strong>.</div>
+                </div>
+            </div>
+
+            <div class="cmd platform-mac">
+                <div class="cmd-head">Stap 1 (Mac) <button class="copy" data-copy="nano ~/.zshrc">copy</button></div>
+                <pre><code>nano ~/.zshrc</code></pre>
+            </div>
+
+            <div class="cmd platform-mac">
+                <div class="cmd-head">Stap 2 (Mac) <button class="copy"
+                        data-copy="alias save=&quot;git add . && git commit -m 'update' && git push&quot;">copy</button>
+                </div>
+                <pre><code>alias save="git add . && git commit -m 'update' && git push"</code></pre>
+            </div>
+
+            <div class="cmd platform-mac">
+                <div class="cmd-head">Stap 3 (Mac) <button class="copy" data-copy="source ~/.zshrc">copy</button></div>
+                <pre><code>source ~/.zshrc</code></pre>
+            </div>
+
+            <div class="explain platform-mac">
+                <strong>Daarna</strong>
+                Als dit gelukt is, kun je later in Terminal gewoon <code class="inline">save</code> typen om je werk op
+                te slaan.
+            </div>
+
+            <div class="explain platform-win hidden">
+                <strong>Windows</strong>
+                Op Windows hoef je deze shortcut niet eerst in te stellen. Daar kun je gewoon de drie losse
+                Git-commando’s gebruiken die verderop op deze pagina staan.
+            </div>
         </div>
 
-        <div class="step">
-          <div class="num">3</div>
-          <div>Werk voortaan vanuit die mapstructuur, zodat je niet hoeft te zoeken waar een project staat.</div>
-        </div>
-      </div>
+        <div class="card" id="existing-project">
+            <h2>2. Ik werk aan een bestaand project</h2>
+            <p class="sub">Gebruik deze route als het project al op GitHub staat.</p>
 
-      <h3>Save shortcut instellen</h3>
-      <p class="sub">Dit is optioneel, maar handig. Dan hoef je later niet steeds drie losse Git-commando’s te typen.
-      </p>
+            <div class="explain">
+                <strong>Wat betekent dit?</strong>
+                Als het project al op GitHub staat, haal je eerst een kopie van dat project naar je computer. Dat heet
+                <em>clonen</em>.
+            </div>
 
-      <div class="explain">
-        <strong>Wat is hier het doel?</strong>
-        Als je deze shortcut instelt, kun je later in Terminal gewoon <code class="inline">save</code> typen in plaats
-        van drie losse regels.
-      </div>
+            <h3>Waar haal ik de repo-link vandaan?</h3>
+            <div class="steps">
+                <div class="step">
+                    <div class="num">1</div>
+                    <div>Open het project op GitHub in je browser.</div>
+                </div>
+                <div class="step">
+                    <div class="num">2</div>
+                    <div>Klik op de groene knop <strong>Code</strong>.</div>
+                </div>
+                <div class="step">
+                    <div class="num">3</div>
+                    <div>Kopieer de HTTPS-link. Dat is de link die je hieronder op de plek van <code
+                            class="inline">REPO-URL</code> zet.</div>
+                </div>
+            </div>
 
-      <div class="steps platform-mac">
-        <div class="step">
-          <div class="num">1</div>
-          <div>Open de app <strong>Terminal</strong>.</div>
-        </div>
-        <div class="step">
-          <div class="num">2</div>
-          <div>Kopieer het eerste commando hieronder, plak het in Terminal en druk op <strong>Enter</strong>.</div>
-        </div>
-        <div class="step">
-          <div class="num">3</div>
-          <div>Kopieer daarna het tweede commando hieronder, plak het in Terminal en druk weer op
-            <strong>Enter</strong>.</div>
-        </div>
-        <div class="step">
-          <div class="num">4</div>
-          <div>Kopieer daarna het derde commando hieronder, plak het in Terminal en druk weer op <strong>Enter</strong>.
-          </div>
-        </div>
-      </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="num">1</div>
+                    <div>Open Terminal (Mac) of PowerShell (Windows).</div>
+                </div>
+                <div class="step">
+                    <div class="num">2</div>
+                    <div>Typ het commando hieronder, vervang <code class="inline">REPO-URL</code> en <code
+                            class="inline">projectnaam</code>, en druk daarna op <strong>Enter</strong>.</div>
+                </div>
+            </div>
 
-      <div class="cmd platform-mac">
-        <div class="cmd-head">Stap 1 (Mac) <button class="copy" data-copy="nano ~/.zshrc">copy</button></div>
-        <pre><code>nano ~/.zshrc</code></pre>
-      </div>
-
-      <div class="cmd platform-mac">
-        <div class="cmd-head">Stap 2 (Mac) <button class="copy"
-            data-copy="alias save=&quot;git add . && git commit -m 'update' && git push&quot;">copy</button></div>
-        <pre><code>alias save="git add . && git commit -m 'update' && git push"</code></pre>
-      </div>
-
-      <div class="cmd platform-mac">
-        <div class="cmd-head">Stap 3 (Mac) <button class="copy" data-copy="source ~/.zshrc">copy</button></div>
-        <pre><code>source ~/.zshrc</code></pre>
-      </div>
-
-      <div class="explain platform-mac">
-        <strong>Goed om te weten</strong>
-        Hierna werkt het commando <code class="inline">save</code> in elke Terminal die je opnieuw opent.
-      </div>
-
-      <div class="steps platform-win hidden">
-        <div class="step">
-          <div class="num">1</div>
-          <div>Windows-gebruikers hoeven dit stukje voorlopig niet te doen.</div>
-        </div>
-        <div class="step">
-          <div class="num">2</div>
-          <div>Gebruik op Windows voorlopig gewoon de 3 losse Git-commando’s verderop op deze pagina.</div>
-        </div>
-      </div>
-
-      <div class="cmd platform-win hidden">
-        <div class="cmd-head">Windows-gebruikers <button class="copy"
-            data-copy="Gebruik op Windows voorlopig liever de 3 losse Git-commando’s hieronder.">copy</button></div>
-        <pre><code>Gebruik op Windows voorlopig liever de 3 losse Git-commando’s hieronder.</code></pre>
-      </div>
-
-      <div class="cmd">
-        <div class="cmd-head">Zonder save shortcut <button class="copy" data-copy="git add .
-git commit -m &quot;update&quot;
-git push">copy</button></div>
-        <pre><code>git add .
-git commit -m "update"
-git push</code></pre>
-      </div>
-    </div>
-
-    <div class="card" id="existing-project">
-      <h2>2. Bestaand project</h2>
-      <p class="sub">Gebruik deze route als het project al op GitHub staat.</p>
-
-      <div class="explain">
-        <strong>Wat betekent dit?</strong>
-        Als het project al op GitHub staat, haal je eerst een kopie van dat project naar je computer. Dat heet
-        <em>clonen</em>.
-      </div>
-
-      <h3>Waar haal ik de repo-URL vandaan?</h3>
-      <div class="steps">
-        <div class="step">
-          <div class="num">1</div>
-          <div>Open het project op GitHub in je browser.</div>
-        </div>
-        <div class="step">
-          <div class="num">2</div>
-          <div>Klik op de groene knop <strong>Code</strong>.</div>
-        </div>
-        <div class="step">
-          <div class="num">3</div>
-          <div>Kopieer de HTTPS-link. Dat is de URL die je hieronder op de plek van <code class="inline">REPO-URL</code>
-            zet.</div>
-        </div>
-      </div>
-
-      <div class="steps">
-        <div class="step">
-          <div class="num">1</div>
-          <div>Open Terminal (Mac) of PowerShell (Windows).</div>
-        </div>
-        <div class="step">
-          <div class="num">2</div>
-          <div>Typ het commando hieronder en druk op <strong>Enter</strong>.</div>
-        </div>
-      </div>
-
-      <div class="cmd platform-mac">
-        <div class="cmd-head">Project ophalen van GitHub (Mac) <button class="copy" data-copy="cd ~/Documents/Repos
+            <div class="cmd platform-mac">
+                <div class="cmd-head">Project ophalen van GitHub (Mac) <button class="copy" data-copy="cd ~/Documents/Repos
 git clone REPO-URL projectnaam">copy</button></div>
-        <pre><code>cd ~/Documents/Repos
+                <pre><code>cd ~/Documents/Repos
 git clone REPO-URL projectnaam</code></pre>
-      </div>
+            </div>
 
-      <div class="cmd platform-win hidden">
-        <div class="cmd-head">Project ophalen van GitHub (Windows) <button class="copy" data-copy="cd %USERPROFILE%\Documents\Repos
+            <div class="cmd platform-win hidden">
+                <div class="cmd-head">Project ophalen van GitHub (Windows) <button class="copy" data-copy="cd %USERPROFILE%\Documents\Repos
 git clone REPO-URL projectnaam">copy</button></div>
-        <pre><code>cd %USERPROFILE%\Documents\Repos
+                <pre><code>cd %USERPROFILE%\Documents\Repos
 git clone REPO-URL projectnaam</code></pre>
-      </div>
+            </div>
 
-      <div class="explain">
-        <strong>Wat moet je vervangen?</strong>
-        Vervang <code class="inline">REPO-URL</code> door de link van GitHub. Vervang <code
-          class="inline">projectnaam</code> door een logische mapnaam, bijvoorbeeld <code class="inline">website</code>
-        of <code class="inline">internal-workflow</code>.
-      </div>
-    </div>
-
-    <div class="card" id="new-project">
-      <h2>3. Nieuw project</h2>
-      <p class="sub">Gebruik deze route als het project nog niet op GitHub staat.</p>
-
-      <div class="explain">
-        <strong>Wat bedoelen we hier precies?</strong>
-        Stel: je hebt al een map op je computer met bestanden erin, maar GitHub weet nog helemaal niet dat dit project
-        bestaat. Dan moet je die map één keer voor het eerst op GitHub zetten.
-      </div>
-
-      <div class="steps">
-        <div class="step">
-          <div class="num">1</div>
-          <div>Maak eerst een nieuwe lege repo op GitHub.</div>
+            <div class="explain">
+                <strong>Wat moet je vervangen?</strong>
+                Vervang <code class="inline">REPO-URL</code> door de link van GitHub. Vervang <code
+                    class="inline">projectnaam</code> door een logische mapnaam, bijvoorbeeld <code
+                    class="inline">website</code> of <code class="inline">internal-workflow</code>.
+            </div>
         </div>
-        <div class="step">
-          <div class="num">2</div>
-          <div>Open daarna de map op je computer waar de projectbestanden in staan.</div>
-        </div>
-        <div class="step">
-          <div class="num">3</div>
-          <div>Open Terminal of PowerShell in precies die map.</div>
-        </div>
-        <div class="step">
-          <div class="num">4</div>
-          <div>Kopieer daarna het blok hieronder, plak het in Terminal of PowerShell, vervang <code
-              class="inline">REPO-URL</code> en druk op <strong>Enter</strong>.</div>
-        </div>
-      </div>
 
-      <div class="cmd">
-        <div class="cmd-head">Project voor het eerst naar GitHub sturen <button class="copy" data-copy="git init
+        <div class="card" id="new-project">
+            <h2>3. Ik heb een nieuw project</h2>
+            <p class="sub">Gebruik deze route als het project nog niet op GitHub staat.</p>
+
+            <div class="explain">
+                <strong>Wat bedoelen we hiermee?</strong>
+                Stel: je hebt al een map op je computer met bestanden erin, maar GitHub weet nog niet dat dit project
+                bestaat. Dan moet je die map één keer voor het eerst op GitHub zetten.
+            </div>
+
+            <div class="steps">
+                <div class="step">
+                    <div class="num">1</div>
+                    <div>Maak eerst een nieuwe lege repo op GitHub.</div>
+                </div>
+                <div class="step">
+                    <div class="num">2</div>
+                    <div>Open daarna de map op je computer waar de projectbestanden in staan.</div>
+                </div>
+                <div class="step">
+                    <div class="num">3</div>
+                    <div>Open Terminal of PowerShell in precies die map.</div>
+                </div>
+                <div class="step">
+                    <div class="num">4</div>
+                    <div>Kopieer het blok hieronder, plak het in Terminal of PowerShell, vervang <code
+                            class="inline">REPO-URL</code> en druk daarna op <strong>Enter</strong>.</div>
+                </div>
+            </div>
+
+            <div class="cmd">
+                <div class="cmd-head">Project voor het eerst naar GitHub sturen <button class="copy" data-copy="git init
 git add .
 git commit -m &quot;first commit&quot;
 git remote add origin REPO-URL
 git push -u origin main">copy</button></div>
-        <pre><code>git init
+                <pre><code>git init
 git add .
 git commit -m "first commit"
 git remote add origin REPO-URL
 git push -u origin main</code></pre>
-      </div>
+            </div>
 
-      <div class="explain">
-        <strong>Wat doet dit?</strong>
-        Hiermee maak je van jouw bestaande map een Git-projectmap en stuur je die voor het eerst naar GitHub.
-      </div>
-    </div>
+            <div class="explain">
+                <strong>Wat doet dit?</strong>
+                Hiermee maak je van jouw bestaande map een Git-projectmap en stuur je die voor het eerst naar GitHub.
+            </div>
+        </div>
 
-    <div class="card" id="start-today">
-      <h2>4. Ik begin vandaag</h2>
-      <p class="sub">Gebruik deze stappen als je verder werkt aan een project dat al als Git-project bestaat.</p>
+        <div class="card" id="start-today">
+            <h2>4. Ik begin vandaag</h2>
+            <p class="sub">Gebruik deze stappen als je verder werkt aan een project dat al bestaat.</p>
 
-      <h3>Hoe kom ik in de juiste map?</h3>
+            <h3>Hoe kom ik in de juiste map?</h3>
 
-      <div class="steps platform-mac">
-        <div class="step">
-          <div class="num">1</div>
-          <div>Open Finder.</div>
-        </div>
-        <div class="step">
-          <div class="num">2</div>
-          <div>Ga naar je projectmap in <strong>Documenten → Repos</strong>.</div>
-        </div>
-        <div class="step">
-          <div class="num">3</div>
-          <div>Open de map van het project, bijvoorbeeld <code class="inline">internal-workflow</code>.</div>
-        </div>
-        <div class="step">
-          <div class="num">4</div>
-          <div>Rechtsklik in die map en kies <strong>Open Terminal at Folder</strong>.</div>
-        </div>
-        <div class="step">
-          <div class="num">5</div>
-          <div>Nu staat je Terminal meteen op de juiste plek. Dán typ je <code class="inline">git pull</code>.</div>
-        </div>
-      </div>
+            <div class="steps platform-mac">
+                <div class="step">
+                    <div class="num">1</div>
+                    <div>Open Finder.</div>
+                </div>
+                <div class="step">
+                    <div class="num">2</div>
+                    <div>Ga naar <strong>Documenten → Repos</strong>.</div>
+                </div>
+                <div class="step">
+                    <div class="num">3</div>
+                    <div>Open de map van het project, bijvoorbeeld <code class="inline">internal-workflow</code>.</div>
+                </div>
+                <div class="step">
+                    <div class="num">4</div>
+                    <div>Rechtsklik in die map en kies <strong>Open Terminal at Folder</strong>.</div>
+                </div>
+                <div class="step">
+                    <div class="num">5</div>
+                    <div>Nu staat je Terminal meteen op de juiste plek. Dán typ je <code class="inline">git pull</code>.
+                    </div>
+                </div>
+            </div>
 
-      <div class="steps platform-win hidden">
-        <div class="step">
-          <div class="num">1</div>
-          <div>Open Verkenner.</div>
-        </div>
-        <div class="step">
-          <div class="num">2</div>
-          <div>Ga naar <strong>Documenten → Repos</strong>.</div>
-        </div>
-        <div class="step">
-          <div class="num">3</div>
-          <div>Open de map van het project.</div>
-        </div>
-        <div class="step">
-          <div class="num">4</div>
-          <div>Klik in de adresbalk, typ <strong>powershell</strong> en druk op <strong>Enter</strong>.</div>
-        </div>
-        <div class="step">
-          <div class="num">5</div>
-          <div>PowerShell opent nu in de juiste map. Dán typ je <code class="inline">git pull</code>.</div>
-        </div>
-      </div>
+            <div class="steps platform-win hidden">
+                <div class="step">
+                    <div class="num">1</div>
+                    <div>Open Verkenner.</div>
+                </div>
+                <div class="step">
+                    <div class="num">2</div>
+                    <div>Ga naar <strong>Documenten → Repos</strong>.</div>
+                </div>
+                <div class="step">
+                    <div class="num">3</div>
+                    <div>Open de map van het project.</div>
+                </div>
+                <div class="step">
+                    <div class="num">4</div>
+                    <div>Klik in de adresbalk, typ <strong>powershell</strong> en druk op <strong>Enter</strong>.</div>
+                </div>
+                <div class="step">
+                    <div class="num">5</div>
+                    <div>PowerShell opent nu in de juiste map. Dán typ je <code class="inline">git pull</code>.</div>
+                </div>
+            </div>
 
-      <div class="cmd">
-        <div class="cmd-head">Haal de nieuwste versie op <button class="copy" data-copy="git pull">copy</button></div>
-        <pre><code>git pull</code></pre>
-      </div>
-    </div>
-
-    <div class="card" id="save-work">
-      <h2>5. Ik ga opslaan</h2>
-      <p class="sub">Je werkt meestal in Claude Code, Codex, Antigravity of Conductor. Het opslaan doe je daarna in
-        Terminal of PowerShell, in dezelfde Git-projectmap.</p>
-
-      <div class="explain">
-        <strong>Waar typ ik dit?</strong>
-        Niet in Claude of Antigravity zelf, maar in Terminal of PowerShell, terwijl die open staat in dezelfde
-        Git-projectmap waarin je net gewerkt hebt.
-      </div>
-
-      <div class="steps">
-        <div class="step">
-          <div class="num">1</div>
-          <div>Werk aan je project in Claude, Codex, Antigravity of Conductor.</div>
+            <div class="cmd">
+                <div class="cmd-head">Haal de nieuwste versie op <button class="copy" data-copy="git pull">copy</button>
+                </div>
+                <pre><code>git pull</code></pre>
+            </div>
         </div>
-        <div class="step">
-          <div class="num">2</div>
-          <div>Open Terminal of PowerShell in diezelfde Git-projectmap.</div>
-        </div>
-        <div class="step">
-          <div class="num">3</div>
-          <div>Typ <code class="inline">save</code> óf de 3 losse Git-commando’s.</div>
-        </div>
-      </div>
 
-      <div class="cmd platform-mac">
-        <div class="cmd-head">Korte versie met shortcut <button class="copy" data-copy="save">copy</button></div>
-        <pre><code>save</code></pre>
-      </div>
+        <div class="card" id="save-work">
+            <h2>5. Ik ben klaar en wil opslaan</h2>
+            <p class="sub">Je werkt meestal in Claude Code, Codex, Antigravity of Conductor. Het opslaan doe je daarna
+                in Terminal of PowerShell, in dezelfde projectmap.</p>
 
-      <div class="cmd">
-        <div class="cmd-head">Zonder shortcut <button class="copy" data-copy="git add .
+            <div class="explain">
+                <strong>Waar typ ik dit?</strong>
+                Niet in Claude of Antigravity zelf, maar in Terminal of PowerShell, terwijl die open staat in dezelfde
+                projectmap waarin je net gewerkt hebt.
+            </div>
+
+            <div class="steps">
+                <div class="step">
+                    <div class="num">1</div>
+                    <div>Werk aan je project in Claude, Codex, Antigravity of Conductor.</div>
+                </div>
+                <div class="step">
+                    <div class="num">2</div>
+                    <div>Open Terminal of PowerShell in diezelfde projectmap.</div>
+                </div>
+                <div class="step">
+                    <div class="num">3</div>
+                    <div>Typ <code class="inline">save</code> óf de 3 losse Git-commando’s.</div>
+                </div>
+            </div>
+
+            <div class="cmd platform-mac">
+                <div class="cmd-head">Korte versie met shortcut <button class="copy" data-copy="save">copy</button>
+                </div>
+                <pre><code>save</code></pre>
+            </div>
+
+            <div class="cmd">
+                <div class="cmd-head">Zonder shortcut <button class="copy" data-copy="git add .
 git commit -m &quot;update&quot;
 git push">copy</button></div>
-        <pre><code>git add .
+                <pre><code>git add .
 git commit -m "update"
 git push</code></pre>
-      </div>
-    </div>
+            </div>
+        </div>
 
-    <div class="card">
-      <h2>Twijfel je wat de laatste versie is?</h2>
-      <p class="sub">Gebruik dit als je even niet meer weet of GitHub of jouw computer de nieuwste versie heeft.</p>
+        <div class="card">
+            <h2>Ik weet niet meer wat de laatste versie is</h2>
+            <p class="sub">Gebruik dit als je even niet meer weet of GitHub of jouw computer de nieuwste versie heeft.
+            </p>
 
-      <div class="cmd">
-        <div class="cmd-head">Check laatste versie <button class="copy" data-copy="git fetch
+            <div class="cmd">
+                <div class="cmd-head">Check laatste versie <button class="copy" data-copy="git fetch
 git status">copy</button></div>
-        <pre><code>git fetch
+                <pre><code>git fetch
 git status</code></pre>
-      </div>
+            </div>
 
-      <div class="explain">
-        <strong>Wat betekent de uitkomst?</strong>
-        <ul>
-          <li><b>up to date</b> → lokaal en GitHub zijn gelijk</li>
-          <li><b>ahead</b> → jouw computer heeft nieuwere wijzigingen</li>
-          <li><b>behind</b> → GitHub heeft nieuwere wijzigingen</li>
-          <li><b>modified</b> → lokaal bestand aangepast maar nog niet opgeslagen in Git</li>
-        </ul>
-      </div>
+            <div class="explain">
+                <strong>Wat betekent de uitkomst?</strong>
+                <ul>
+                    <li><b>up to date</b> → lokaal en GitHub zijn gelijk</li>
+                    <li><b>ahead</b> → jouw computer heeft nieuwere wijzigingen</li>
+                    <li><b>behind</b> → GitHub heeft nieuwere wijzigingen</li>
+                    <li><b>modified</b> → lokaal bestand aangepast maar nog niet opgeslagen in Git</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card panic" id="panic">
+            <h2>6. Ik zit vast</h2>
+            <p class="sub">Doe dan eerst dit. Meestal kom je hier al mee verder.</p>
+
+            <div class="cmd">
+                <div class="cmd-head">Check wat Git ziet <button class="copy" data-copy="git status">copy</button></div>
+                <pre><code>git status</code></pre>
+            </div>
+
+            <div class="cmd">
+                <div class="cmd-head">Check in welke projectmap je zit <button class="copy"
+                        data-copy="git rev-parse --show-toplevel">copy</button></div>
+                <pre><code>git rev-parse --show-toplevel</code></pre>
+            </div>
+
+            <div class="cmd">
+                <div class="cmd-head">Haal nieuwste versie op <button class="copy" data-copy="git pull">copy</button>
+                </div>
+                <pre><code>git pull</code></pre>
+            </div>
+
+            <div class="explain">
+                <strong>Krijg je een fout als “not a git repository”?</strong>
+                Dan zit je niet in een Git-projectmap. Ga dan terug naar de map die je van GitHub gecloned hebt, of zet
+                het project eerst voor het eerst op GitHub als het nog nieuw is.
+            </div>
+        </div>
+
+        <div class="footer">Morgen Academy – interne workflow</div>
     </div>
 
-    <div class="card panic" id="panic">
-      <h2>6. Ik zit vast</h2>
-      <p class="sub">Doe dan eerst dit. Meestal kom je hier al mee verder.</p>
+    <script>
+        function setPlatform(p) {
+            const macEls = document.querySelectorAll('.platform-mac');
+            const winEls = document.querySelectorAll('.platform-win');
+            const macBtn = document.getElementById('macBtn');
+            const winBtn = document.getElementById('winBtn');
 
-      <div class="cmd">
-        <div class="cmd-head">Check wat Git ziet <button class="copy" data-copy="git status">copy</button></div>
-        <pre><code>git status</code></pre>
-      </div>
-
-      <div class="cmd">
-        <div class="cmd-head">Check in welke projectmap je zit <button class="copy"
-            data-copy="git rev-parse --show-toplevel">copy</button></div>
-        <pre><code>git rev-parse --show-toplevel</code></pre>
-      </div>
-
-      <div class="cmd">
-        <div class="cmd-head">Haal nieuwste versie op <button class="copy" data-copy="git pull">copy</button></div>
-        <pre><code>git pull</code></pre>
-      </div>
-
-      <div class="explain">
-        <strong>Krijg je een fout als “not a git repository”?</strong>
-        Dan zit je niet in een Git-projectmap. Ga dan terug naar de map die je van GitHub gecloned hebt, of zet het
-        project eerst voor het eerst op GitHub als het nog nieuw is.
-      </div>
-    </div>
-
-    <div class="footer">Morgen Academy – interne workflow</div>
-  </div>
-
-  <script>
-    function setPlatform(p) {
-      const macEls = document.querySelectorAll('.platform-mac');
-      const winEls = document.querySelectorAll('.platform-win');
-      const macBtn = document.getElementById('macBtn');
-      const winBtn = document.getElementById('winBtn');
-
-      if (p === 'mac') {
-        macEls.forEach(e => e.classList.remove('hidden'));
-        winEls.forEach(e => e.classList.add('hidden'));
-        macBtn.classList.add('active');
-        winBtn.classList.remove('active');
-      } else {
-        winEls.forEach(e => e.classList.remove('hidden'));
-        macEls.forEach(e => e.classList.add('hidden'));
-        winBtn.classList.add('active');
-        macBtn.classList.remove('active');
-      }
-    }
-
-    document.querySelectorAll('.copy').forEach(btn => {
-      btn.addEventListener('click', async () => {
-        const text = btn.dataset.copy;
-        const old = btn.innerText;
-        try {
-          await navigator.clipboard.writeText(text);
-          btn.innerText = 'copied';
-          setTimeout(() => btn.innerText = old, 1000);
-        } catch (e) {
-          btn.innerText = 'failed';
-          setTimeout(() => btn.innerText = old, 1000);
+            if (p === 'mac') {
+                macEls.forEach(e => e.classList.remove('hidden'));
+                winEls.forEach(e => e.classList.add('hidden'));
+                macBtn.classList.add('active');
+                winBtn.classList.remove('active');
+            } else {
+                winEls.forEach(e => e.classList.remove('hidden'));
+                macEls.forEach(e => e.classList.add('hidden'));
+                winBtn.classList.add('active');
+                macBtn.classList.remove('active');
+            }
         }
-      });
-    });
-  </script>
+
+        document.querySelectorAll('.copy').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                const text = btn.dataset.copy;
+                const old = btn.innerText;
+                try {
+                    await navigator.clipboard.writeText(text);
+                    btn.innerText = 'copied';
+                    setTimeout(() => btn.innerText = old, 1000);
+                } catch (e) {
+                    btn.innerText = 'failed';
+                    setTimeout(() => btn.innerText = old, 1000);
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
