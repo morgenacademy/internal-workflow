@@ -128,7 +128,7 @@
             margin: 14px 0;
         }
 
-        .explain strong {
+        .explain strong:first-child {
             display: block;
             margin-bottom: 4px;
         }
@@ -381,7 +381,8 @@
             <div class="route-grid">
                 <a class="route primary" href="#pre-setup">
                     <strong>1. Ik gebruik dit voor het eerst</strong>
-                    Git installeren, mapstructuur aanmaken en optioneel de save-shortcut instellen.
+                    <span class="platform-mac">Git installeren, mapstructuur aanmaken en optioneel de save-shortcut instellen.</span>
+                    <span class="platform-win hidden">Git installeren en je mapstructuur aanmaken.</span>
                 </a>
 
                 <a class="route" href="#existing-project">
@@ -434,20 +435,21 @@
 
                 <div class="step">
                     <div class="num">3</div>
-                    <div>Werk voortaan vanuit die mapstructuur, zodat je niet hoeft te zoeken waar een project staat.
+                    <div>Werk voortaan vanuit <strong>Documenten → Repos</strong>. Zo weet je altijd waar al je projecten staan.
                     </div>
                 </div>
             </div>
 
-            <h3>Save shortcut instellen</h3>
-            <p class="sub">Dit is optioneel, maar handig. Dan hoef je later niet steeds drie losse Git-commando’s te
-                typen.</p>
+            <h3 class="platform-mac">Save shortcut instellen (optioneel)</h3>
+            <p class="sub platform-mac">Dit hoef je maar één keer te doen. Daarna kun je in Terminal gewoon <code class="inline">save</code> typen in plaats van drie losse commando's.</p>
 
-            <div class="explain">
+            <div class="explain platform-mac">
                 <strong>Waarom zou je dit doen?</strong>
                 Als je dit instelt, kun je later in Terminal gewoon <code class="inline">save</code> typen. Zonder deze
                 shortcut moet je steeds drie losse regels typen.
             </div>
+
+
 
             <div class="steps platform-mac">
                 <div class="step">
@@ -494,11 +496,7 @@
                 te slaan.
             </div>
 
-            <div class="explain platform-win hidden">
-                <strong>Windows</strong>
-                Op Windows hoef je deze shortcut niet eerst in te stellen. Daar kun je gewoon de drie losse
-                Git-commando’s gebruiken die verderop op deze pagina staan.
-            </div>
+            
         </div>
 
         <div class="card" id="existing-project">
@@ -528,15 +526,27 @@
                 </div>
             </div>
 
-            <div class="steps">
+            <div class="steps platform-mac">
                 <div class="step">
                     <div class="num">1</div>
-                    <div>Open Terminal (Mac) of PowerShell (Windows).</div>
+                    <div>Open de app <strong>Terminal</strong>. Je vindt deze via <strong>Spotlight</strong>: druk <strong>⌘ + spatie</strong> en typ <em>Terminal</em>.</div>
                 </div>
                 <div class="step">
                     <div class="num">2</div>
-                    <div>Typ het commando hieronder, vervang <code class="inline">REPO-URL</code> en <code
-                            class="inline">projectnaam</code>, en druk daarna op <strong>Enter</strong>.</div>
+                    <div>Kopieer het commando hieronder, vervang <code class="inline">REPO-URL</code> en <code
+                            class="inline">projectnaam</code>, plak het in Terminal en druk op <strong>Enter</strong>.</div>
+                </div>
+            </div>
+
+            <div class="steps platform-win hidden">
+                <div class="step">
+                    <div class="num">1</div>
+                    <div>Open <strong>PowerShell</strong>. Klik op de Windows-startknop, typ <em>PowerShell</em> en klik erop.</div>
+                </div>
+                <div class="step">
+                    <div class="num">2</div>
+                    <div>Kopieer het commando hieronder, vervang <code class="inline">REPO-URL</code> en <code
+                            class="inline">projectnaam</code>, plak het in PowerShell en druk op <strong>Enter</strong>.</div>
                 </div>
             </div>
 
@@ -572,23 +582,41 @@ git clone REPO-URL projectnaam</code></pre>
                 bestaat. Dan moet je die map één keer voor het eerst op GitHub zetten.
             </div>
 
-            <div class="steps">
+            <div class="steps platform-mac">
                 <div class="step">
                     <div class="num">1</div>
                     <div>Maak eerst een nieuwe lege repo op GitHub.</div>
                 </div>
                 <div class="step">
                     <div class="num">2</div>
-                    <div>Open daarna de map op je computer waar de projectbestanden in staan.</div>
+                    <div>Open <strong>Finder</strong> en ga naar de map waar je projectbestanden in staan, bijvoorbeeld <strong>Documenten → Repos → mijn-project</strong>.</div>
                 </div>
                 <div class="step">
                     <div class="num">3</div>
-                    <div>Open Terminal of PowerShell in precies die map.</div>
+                    <div>Rechtsklik op de projectmap en kies <strong>Nieuwe Terminal bij map</strong> (of: <em>New Terminal at Folder</em>). Er opent nu een Terminal die al in de juiste map staat.</div>
                 </div>
                 <div class="step">
                     <div class="num">4</div>
-                    <div>Kopieer het blok hieronder, plak het in Terminal of PowerShell, vervang <code
-                            class="inline">REPO-URL</code> en druk daarna op <strong>Enter</strong>.</div>
+                    <div>Kopieer het blok hieronder, plak het in Terminal, vervang <code class="inline">REPO-URL</code> door de link van GitHub en druk op <strong>Enter</strong>.</div>
+                </div>
+            </div>
+
+            <div class="steps platform-win hidden">
+                <div class="step">
+                    <div class="num">1</div>
+                    <div>Maak eerst een nieuwe lege repo op GitHub.</div>
+                </div>
+                <div class="step">
+                    <div class="num">2</div>
+                    <div>Open <strong>Verkenner</strong> en ga naar de map waar je projectbestanden in staan, bijvoorbeeld <strong>Documenten → Repos → mijn-project</strong>.</div>
+                </div>
+                <div class="step">
+                    <div class="num">3</div>
+                    <div>Klik in de adresbalk van Verkenner, typ <strong>powershell</strong> en druk op <strong>Enter</strong>. Er opent nu een PowerShell-venster dat al in de juiste map staat.</div>
+                </div>
+                <div class="step">
+                    <div class="num">4</div>
+                    <div>Kopieer het blok hieronder, plak het in PowerShell, vervang <code class="inline">REPO-URL</code> door de link van GitHub en druk op <strong>Enter</strong>.</div>
                 </div>
             </div>
 
@@ -632,7 +660,7 @@ git push -u origin main</code></pre>
                 </div>
                 <div class="step">
                     <div class="num">4</div>
-                    <div>Rechtsklik in die map en kies <strong>Open Terminal at Folder</strong>.</div>
+                    <div>Rechtsklik op de projectmap en kies <strong>Nieuwe Terminal bij map</strong> (of: <em>New Terminal at Folder</em>).</div>
                 </div>
                 <div class="step">
                     <div class="num">5</div>
@@ -673,27 +701,50 @@ git push -u origin main</code></pre>
 
         <div class="card" id="save-work">
             <h2>5. Ik ben klaar en wil opslaan</h2>
-            <p class="sub">Je werkt meestal in Claude Code, Codex, Antigravity of Conductor. Het opslaan doe je daarna
-                in Terminal of PowerShell, in dezelfde projectmap.</p>
+            <p class="sub platform-mac">Je werkt meestal in Claude Code, Codex, Antigravity of Conductor. Het opslaan doe je daarna
+                in Terminal, in dezelfde projectmap.</p>
+            <p class="sub platform-win hidden">Je werkt meestal in Claude Code, Codex, Antigravity of Conductor. Het opslaan doe je daarna
+                in PowerShell, in dezelfde projectmap.</p>
 
-            <div class="explain">
+            <div class="explain platform-mac">
                 <strong>Waar typ ik dit?</strong>
-                Niet in Claude of Antigravity zelf, maar in Terminal of PowerShell, terwijl die open staat in dezelfde
+                Niet in Claude of Antigravity zelf, maar in Terminal, terwijl die open staat in dezelfde
                 projectmap waarin je net gewerkt hebt.
             </div>
 
-            <div class="steps">
+            <div class="explain platform-win hidden">
+                <strong>Waar typ ik dit?</strong>
+                Niet in Claude of Antigravity zelf, maar in PowerShell, terwijl die open staat in dezelfde
+                projectmap waarin je net gewerkt hebt.
+            </div>
+
+            <div class="steps platform-mac">
                 <div class="step">
                     <div class="num">1</div>
                     <div>Werk aan je project in Claude, Codex, Antigravity of Conductor.</div>
                 </div>
                 <div class="step">
                     <div class="num">2</div>
-                    <div>Open Terminal of PowerShell in diezelfde projectmap.</div>
+                    <div>Open Terminal in de projectmap. Ga hiervoor in <strong>Finder</strong> naar <strong>Documenten → Repos → je projectmap</strong>, rechtsklik op de map en kies <strong>Nieuwe Terminal bij map</strong>.</div>
                 </div>
                 <div class="step">
                     <div class="num">3</div>
-                    <div>Typ <code class="inline">save</code> óf de 3 losse Git-commando’s.</div>
+                    <div>Typ <code class="inline">save</code> en druk op <strong>Enter</strong>. Of gebruik de losse commando's hieronder.</div>
+                </div>
+            </div>
+
+            <div class="steps platform-win hidden">
+                <div class="step">
+                    <div class="num">1</div>
+                    <div>Werk aan je project in Claude, Codex, Antigravity of Conductor.</div>
+                </div>
+                <div class="step">
+                    <div class="num">2</div>
+                    <div>Open PowerShell in de projectmap. Ga hiervoor in <strong>Verkenner</strong> naar <strong>Documenten → Repos → je projectmap</strong>, klik in de adresbalk, typ <strong>powershell</strong> en druk op <strong>Enter</strong>.</div>
+                </div>
+                <div class="step">
+                    <div class="num">3</div>
+                    <div>Typ de 3 losse Git-commando's hieronder.</div>
                 </div>
             </div>
 
@@ -703,8 +754,17 @@ git push -u origin main</code></pre>
                 <pre><code>save</code></pre>
             </div>
 
-            <div class="cmd">
-                <div class="cmd-head">Zonder shortcut <button class="copy" data-copy="git add .
+            <div class="cmd platform-mac">
+                <div class="cmd-head">Of typ het handmatig <button class="copy" data-copy="git add .
+git commit -m &quot;update&quot;
+git push">copy</button></div>
+                <pre><code>git add .
+git commit -m "update"
+git push</code></pre>
+            </div>
+
+            <div class="cmd platform-win hidden">
+                <div class="cmd-head">Werk opslaan naar GitHub <button class="copy" data-copy="git add .
 git commit -m &quot;update&quot;
 git push">copy</button></div>
                 <pre><code>git add .
@@ -715,11 +775,20 @@ git push</code></pre>
 
         <div class="card">
             <h2>Ik weet niet meer wat de laatste versie is</h2>
-            <p class="sub">Gebruik dit als je even niet meer weet of GitHub of jouw computer de nieuwste versie heeft.
-            </p>
+            <p class="sub">Gebruik dit als je twijfelt of jouw computer of GitHub de nieuwste versie heeft.</p>
+
+            <div class="explain platform-mac">
+                <strong>Hoe doe je dit?</strong>
+                Open <strong>Finder</strong>, ga naar <strong>Documenten → Repos → je projectmap</strong>. Rechtsklik op de map en kies <strong>Nieuwe Terminal bij map</strong>. Typ dan de commando's hieronder.
+            </div>
+
+            <div class="explain platform-win hidden">
+                <strong>Hoe doe je dit?</strong>
+                Open <strong>Verkenner</strong>, ga naar <strong>Documenten → Repos → je projectmap</strong>. Klik in de adresbalk, typ <strong>powershell</strong> en druk op <strong>Enter</strong>. Typ dan de commando's hieronder.
+            </div>
 
             <div class="cmd">
-                <div class="cmd-head">Check laatste versie <button class="copy" data-copy="git fetch
+                <div class="cmd-head">Controleer waar de nieuwste versie staat <button class="copy" data-copy="git fetch
 git status">copy</button></div>
                 <pre><code>git fetch
 git status</code></pre>
@@ -728,10 +797,12 @@ git status</code></pre>
             <div class="explain">
                 <strong>Wat betekent de uitkomst?</strong>
                 <ul>
-                    <li><b>up to date</b> → lokaal en GitHub zijn gelijk</li>
-                    <li><b>ahead</b> → jouw computer heeft nieuwere wijzigingen</li>
-                    <li><b>behind</b> → GitHub heeft nieuwere wijzigingen</li>
-                    <li><b>modified</b> → lokaal bestand aangepast maar nog niet opgeslagen in Git</li>
+                    <li><b>up to date</b> → Alles is gelijk. Je hoeft niets te doen.</li>
+                    <li class="platform-mac"><b>ahead</b> → Jouw computer loopt voor. Je hebt wijzigingen die nog niet op GitHub staan. Typ <code class="inline">save</code> in Terminal om ze te versturen.</li>
+                    <li class="platform-win hidden"><b>ahead</b> → Jouw computer loopt voor. Je hebt wijzigingen die nog niet op GitHub staan. Typ de 3 Git-commando's (zie stap 5) om ze te versturen.</li>
+                    <li><b>behind</b> → GitHub loopt voor. Iemand anders heeft iets gewijzigd. Typ <code class="inline">git pull</code> om die wijzigingen op te halen.</li>
+                    <li class="platform-mac"><b>modified</b> → Je hebt iets aangepast op je computer, maar het is nog niet opgeslagen in Git. Typ <code class="inline">save</code> in Terminal om het op te slaan.</li>
+                    <li class="platform-win hidden"><b>modified</b> → Je hebt iets aangepast op je computer, maar het is nog niet opgeslagen in Git. Typ de 3 Git-commando’s (zie stap 5) om het op te slaan.</li>
                 </ul>
             </div>
         </div>
@@ -740,13 +811,23 @@ git status</code></pre>
             <h2>6. Ik zit vast</h2>
             <p class="sub">Doe dan eerst dit. Meestal kom je hier al mee verder.</p>
 
+            <div class="explain platform-mac">
+                <strong>Waar typ je deze commando's?</strong>
+                Open <strong>Finder</strong>, ga naar <strong>Documenten → Repos → je projectmap</strong>. Rechtsklik op de map en kies <strong>Nieuwe Terminal bij map</strong>. Typ dan de commando's hieronder.
+            </div>
+
+            <div class="explain platform-win hidden">
+                <strong>Waar typ je deze commando's?</strong>
+                Open <strong>Verkenner</strong>, ga naar <strong>Documenten → Repos → je projectmap</strong>. Klik in de adresbalk, typ <strong>powershell</strong> en druk op <strong>Enter</strong>. Typ dan de commando's hieronder.
+            </div>
+
             <div class="cmd">
-                <div class="cmd-head">Check wat Git ziet <button class="copy" data-copy="git status">copy</button></div>
+                <div class="cmd-head">Bekijk of er iets is veranderd <button class="copy" data-copy="git status">copy</button></div>
                 <pre><code>git status</code></pre>
             </div>
 
             <div class="cmd">
-                <div class="cmd-head">Check in welke projectmap je zit <button class="copy"
+                <div class="cmd-head">Controleer in welke map je nu zit <button class="copy"
                         data-copy="git rev-parse --show-toplevel">copy</button></div>
                 <pre><code>git rev-parse --show-toplevel</code></pre>
             </div>
@@ -757,10 +838,14 @@ git status</code></pre>
                 <pre><code>git pull</code></pre>
             </div>
 
-            <div class="explain">
+            <div class="explain platform-mac">
                 <strong>Krijg je een fout als “not a git repository”?</strong>
-                Dan zit je niet in een Git-projectmap. Ga dan terug naar de map die je van GitHub gecloned hebt, of zet
-                het project eerst voor het eerst op GitHub als het nog nieuw is.
+                Dan zit je niet in de goede map. Ga in <strong>Finder</strong> naar <strong>Documenten → Repos → naam van je project</strong> en open daar opnieuw Terminal via rechtsklik → <strong>Nieuwe Terminal bij map</strong>.
+            </div>
+
+            <div class="explain platform-win hidden">
+                <strong>Krijg je een fout als “not a git repository”?</strong>
+                Dan zit je niet in de goede map. Ga in <strong>Verkenner</strong> naar <strong>Documenten → Repos → naam van je project</strong>, klik in de adresbalk, typ <strong>powershell</strong> en druk op <strong>Enter</strong>.
             </div>
         </div>
 
