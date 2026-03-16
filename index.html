@@ -417,14 +417,32 @@
             <p class="sub">Deze dingen hoef je maar één keer te doen. Daarna wordt de rest makkelijker.</p>
 
             <div class="steps">
-                <div class="step">
+                <div class="step platform-mac">
                     <div class="num">1</div>
-                    <div>Installeer Git op je computer via <a href="https://git-scm.com"
-                            target="_blank">git-scm.com</a>.</div>
+                    <div>
+                        Installeer Git op je computer. Open de app <strong>Terminal</strong>: druk <strong>⌘ + spatie</strong>, typ <em>Terminal</em> en druk op <strong>Enter</strong>.
+                    </div>
+                </div>
+                <div class="step platform-mac">
+                    <div class="num">2</div>
+                    <div>
+                        Kopieer het commando hieronder, plak het in Terminal en druk op <strong>Enter</strong>. Volg de instructies op het scherm.
+                    </div>
+                </div>
+
+                <div class="cmd platform-mac">
+                    <div class="cmd-head">Git installeren (Mac) <button class="copy" data-copy="xcode-select --install">copy</button></div>
+                    <pre><code>xcode-select --install</code></pre>
+                </div>
+
+                <div class="step platform-win hidden">
+                    <div class="num">1</div>
+                    <div>Installeer Git op je computer via <a href="https://git-scm.com" target="_blank">git-scm.com</a>. Download het installatieprogramma en volg de stappen.</div>
                 </div>
 
                 <div class="step">
-                    <div class="num">2</div>
+                    <div class="num platform-mac">3</div>
+                    <div class="num platform-win hidden">2</div>
                     <div>
                         Maak in je <strong>Documenten</strong> een map aan met de naam <code
                             class="inline">Repos</code>.
@@ -434,7 +452,8 @@
                 </div>
 
                 <div class="step">
-                    <div class="num">3</div>
+                    <div class="num platform-mac">4</div>
+                    <div class="num platform-win hidden">3</div>
                     <div>Werk voortaan vanuit <strong>Documenten → Repos</strong>. Zo weet je altijd waar al je projecten staan.
                     </div>
                 </div>
@@ -454,46 +473,61 @@
             <div class="steps platform-mac">
                 <div class="step">
                     <div class="num">1</div>
-                    <div>Open de app <strong>Terminal</strong>.</div>
+                    <div>Open de app <strong>Terminal</strong>. Druk <strong>⌘ + spatie</strong>, typ <em>Terminal</em> en druk op <strong>Enter</strong>.</div>
                 </div>
                 <div class="step">
                     <div class="num">2</div>
-                    <div>Kopieer het eerste commando hieronder, plak het in Terminal en druk op <strong>Enter</strong>.
+                    <div>Kopieer het commando hieronder, plak het in Terminal en druk op <strong>Enter</strong>. Er opent nu een teksteditor in Terminal.
                     </div>
-                </div>
-                <div class="step">
-                    <div class="num">3</div>
-                    <div>Kopieer daarna het tweede commando hieronder, plak het in Terminal en druk weer op
-                        <strong>Enter</strong>.</div>
-                </div>
-                <div class="step">
-                    <div class="num">4</div>
-                    <div>Kopieer daarna het derde commando hieronder, plak het in Terminal en druk weer op
-                        <strong>Enter</strong>.</div>
                 </div>
             </div>
 
             <div class="cmd platform-mac">
-                <div class="cmd-head">Stap 1 (Mac) <button class="copy" data-copy="nano ~/.zshrc">copy</button></div>
+                <div class="cmd-head">Open het instellingenbestand (Mac) <button class="copy" data-copy="nano ~/.zshrc">copy</button></div>
                 <pre><code>nano ~/.zshrc</code></pre>
             </div>
 
+            <div class="steps platform-mac">
+                <div class="step">
+                    <div class="num">3</div>
+                    <div>Je ziet nu een zwart scherm met bovenaan de tekst <em>GNU nano</em>. Kopieer de regel hieronder en plak deze in het scherm.</div>
+                </div>
+            </div>
+
             <div class="cmd platform-mac">
-                <div class="cmd-head">Stap 2 (Mac) <button class="copy"
+                <div class="cmd-head">Plak deze regel in nano (Mac) <button class="copy"
                         data-copy="alias save=&quot;git add . && git commit -m 'update' && git push&quot;">copy</button>
                 </div>
                 <pre><code>alias save="git add . && git commit -m 'update' && git push"</code></pre>
             </div>
 
+            <div class="steps platform-mac">
+                <div class="step">
+                    <div class="num">4</div>
+                    <div>Druk op <strong>Control + O</strong> (de letter O, niet het cijfer nul). Dit betekent "opslaan".</div>
+                </div>
+                <div class="step">
+                    <div class="num">5</div>
+                    <div>Nano vraagt nu om de bestandsnaam te bevestigen. Druk gewoon op <strong>Enter</strong> om te bevestigen.</div>
+                </div>
+                <div class="step">
+                    <div class="num">6</div>
+                    <div>Druk op <strong>Control + X</strong> om nano af te sluiten. Je bent nu terug in Terminal.</div>
+                </div>
+                <div class="step">
+                    <div class="num">7</div>
+                    <div>Kopieer het laatste commando hieronder, plak het in Terminal en druk op <strong>Enter</strong>. Dit activeert je nieuwe shortcut.</div>
+                </div>
+            </div>
+
             <div class="cmd platform-mac">
-                <div class="cmd-head">Stap 3 (Mac) <button class="copy" data-copy="source ~/.zshrc">copy</button></div>
+                <div class="cmd-head">Shortcut activeren (Mac) <button class="copy" data-copy="source ~/.zshrc">copy</button></div>
                 <pre><code>source ~/.zshrc</code></pre>
             </div>
 
             <div class="explain platform-mac">
-                <strong>Daarna</strong>
-                Als dit gelukt is, kun je later in Terminal gewoon <code class="inline">save</code> typen om je werk op
-                te slaan.
+                <strong>Klaar!</strong>
+                Je kunt nu in Terminal gewoon <code class="inline">save</code> typen om je werk op te slaan naar GitHub. Je hoeft dit instellen maar één keer te doen.
             </div>
 
             
