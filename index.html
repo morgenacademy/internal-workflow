@@ -7,18 +7,18 @@
     <title>Morgen Academy – Git workflow</title>
     <style>
         :root {
-            --bg: #f6f3ee;
+            --bg: #f5f2f8;
             --panel: #ffffff;
-            --soft: #fbf8f3;
+            --soft: #f8f5fb;
             --text: #1a1a1a;
-            --muted: #6a645d;
-            --line: #ddd5c9;
-            --accent: #111111;
-            --accent-soft: #f1ebe1;
+            --muted: #6a5f7a;
+            --line: #d8cfe6;
+            --accent: #3b1f6e;
+            --accent-soft: #ede6f7;
             --ok: #eef6ef;
             --warn: #fff5e8;
             --panic: #fff1f1;
-            --shadow: 0 10px 28px rgba(0, 0, 0, .05);
+            --shadow: 0 10px 28px rgba(59, 31, 110, .07);
         }
 
         * {
@@ -32,7 +32,7 @@
         body {
             margin: 0;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif;
-            background: linear-gradient(180deg, #f8f5ef, #f2ede5);
+            background: linear-gradient(180deg, #f5f0fa, #ece5f5);
             color: var(--text);
             line-height: 1.6;
         }
@@ -244,7 +244,7 @@
             justify-content: space-between;
             align-items: center;
             gap: 12px;
-            background: #f5efe6;
+            background: #ede6f7;
             padding: 10px 14px;
             border-bottom: 1px solid var(--line);
             font-size: 14px;
@@ -408,6 +408,11 @@
                 <a class="route" href="#panic">
                     <strong>6. Ik zit vast</strong>
                     Ik weet niet meer wat de nieuwste versie is of ik krijg een foutmelding.
+                </a>
+
+                <a class="route" href="#deploy">
+                    <strong>7. Deploy</strong>
+                    Ik wil mijn project online zetten zodat iedereen het kan bekijken.
                 </a>
             </div>
         </div>
@@ -880,6 +885,65 @@ git status</code></pre>
             <div class="explain platform-win hidden">
                 <strong>Krijg je een fout als “not a git repository”?</strong>
                 Dan zit je niet in de goede map. Ga in <strong>Verkenner</strong> naar <strong>Documenten → Repos → naam van je project</strong>, klik in de adresbalk, typ <strong>powershell</strong> en druk op <strong>Enter</strong>.
+            </div>
+        </div>
+
+        <div class="card" id="deploy">
+            <h2>7. Deploy</h2>
+            <p class="sub">Je project online zetten zodat het voor iedereen bereikbaar is — met een eigen domeinnaam als je dat wilt.</p>
+
+            <div class="explain">
+                <strong>Waarom deployen?</strong>
+                Zolang je project alleen op GitHub staat, kan niemand het als website bezoeken. Door het te deployen via Netlify wordt het automatisch online gezet op een publieke URL. Je kunt er ook een eigen domeinnaam aan koppelen (zoals <code class="inline">jouwproject.nl</code>). Elke keer dat je iets naar GitHub pusht, wordt de website automatisch bijgewerkt.
+            </div>
+
+            <div class="steps">
+                <div class="step">
+                    <div class="num">1</div>
+                    <div>
+                        Ga naar <a href="https://app.netlify.com" target="_blank">app.netlify.com</a> en log in (of maak een account aan). Je kunt inloggen met je GitHub-account.
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="num">2</div>
+                    <div>
+                        Klik op <strong>Add new project</strong>.
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="num">3</div>
+                    <div>
+                        Kies <strong>Import an existing project</strong> en selecteer <strong>GitHub</strong> als bron.
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="num">4</div>
+                    <div>
+                        Kies de repo van jouw project uit de lijst. Als je hem niet ziet, moet je Netlify eerst toegang geven tot je GitHub-account.
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="num">5</div>
+                    <div>
+                        Vul de <strong>build settings</strong> in. Weet je niet wat je hier moet invullen? Vraag het aan de AI-tool waar je mee bouwt (Claude, Codex, Antigravity, etc.).
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="num">6</div>
+                    <div>
+                        <em>Optioneel:</em> vul <strong>environment variables</strong> in als dat nodig is. Ook hier geldt: vraag het aan de AI-tool waar je mee werkt of dit van toepassing is op jouw project.
+                    </div>
+                </div>
+            </div>
+
+            <div class="explain">
+                <strong>En daarna?</strong>
+                Na het deployen krijg je een URL van Netlify (iets als <code class="inline">jouw-project.netlify.app</code>). Wil je een eigen domeinnaam? Dat kun je instellen onder <strong>Domain settings</strong> in Netlify.
             </div>
         </div>
 
